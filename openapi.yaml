@@ -4,7 +4,6 @@ info:
   version: 1.0.0
 servers:
   - url: https://kosconnect-server.vercel.app
-  - url: http://kosconnect-server.vercel.app
 
 components:
   securitySchemes:
