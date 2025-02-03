@@ -1,0 +1,868 @@
+openapi: 3.0.0
+info:
+  title: KosConnect API
+  description: |
+    API documentation for KosConnect, a platform for managing boarding houses and rentals.
+  version: 1.0.0
+
+servers:
+  - url: https://kosconnect-server.vercel.app
+
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+security:
+  - BearerAuth: []
+
+tags:
+  - name: auth
+  - name: users
+  - name: category
+  - name: facility
+  - name: customFacility
+  - name: boardingHouse
+  - name: room
+  - name: transaction
+
+paths:
+  /auth/register:
+    post:
+      tags:
+        - auth
+      summary: Register a new user
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - fullname
+                - email
+                - password
+              properties:
+                fullname:
+                  type: string
+                  example: Siti
+                email:
+                  type: string
+                  example: skresmiamenun@gmail.com
+                role:
+                  type: string
+                  example: user
+                password:
+                  type: string
+                  example: abcd
+      responses:
+        '201':
+          description: User registered successfully
+
+  /auth/login:
+    post:
+      tags:
+        - auth
+      summary: Login user
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - email
+                - password
+              properties:
+                email:
+                  type: string
+                  example: fathyapremium@gmail.com
+                password:
+                  type: string
+                  example: abcd
+      responses:
+        '200':
+          description: Login successful
+/api/users/{id}:
+    get:
+      tags:
+        - users
+      summary: Get user by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          example: 67854a29e4b7a19886bfdbcd
+      responses:
+        '200':
+          description: User details retrieved
+
+    put:
+      tags:
+        - users
+      summary: Update user by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          example: 67854a29e4b7a19886bfdbcd
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                fullname:
+                  type: string
+                  example: Fathya Fathimah
+                email:
+                  type: string
+                  example: 714220012@std.ulbi.ac.id
+      responses:
+        '200':
+          description: User updated successfully
+
+    delete:
+      tags:
+        - users
+      summary: Delete user by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          example: 678216730bf7bd2671c3e154
+      responses:
+        '200':
+          description: User deleted successfully
+
+  /api/users/me:
+    get:
+      tags:
+        - users
+      summary: Get authenticated user details
+      responses:
+        '200':
+          description: User details retrieved
+
+  /api/users:
+    get:
+      tags:
+        - users
+      summary: Get all users
+      responses:
+        '200':
+          description: Users list retrieved
+
+  /api/users/{id}/role:
+    put:
+      tags:
+        - users
+      summary: Update user role
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          example: 678216730bf7bd2671c3e154
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                role:
+                  type: string
+                  example: user
+      responses:
+        '200':
+          description: User role updated successfully
+
+  /api/users/owner:
+    get:
+      tags:
+        - users
+      summary: Get all owners
+      responses:
+        '200':
+          description: Owners list retrieved
+   /api/categories:
+    post:
+      tags:
+        - category
+      summary: Create a new category
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: Kos Keluarga
+      responses:
+        '201':
+          description: Category created successfully
+
+    get:
+      tags:
+        - category
+      summary: Get all categories
+      responses:
+        '200':
+          description: Categories list retrieved
+
+  /api/categories/{id}:
+    get:
+      tags:
+        - category
+      summary: Get category by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          example: 67a007206f265d5bbcdd78cd
+      responses:
+        '200':
+          description: Category details retrieved
+
+    put:
+      tags:
+        - category
+      summary: Update category by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          example: 67a007206f265d5bbcdd78cd
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: Kos Pria
+      responses:
+        '200':
+          description: Category updated successfully
+
+    delete:
+      tags:
+        - category
+      summary: Delete category by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          example: 67a007206f265d5bbcdd78cd
+      responses:
+        '200':
+          description: Category deleted successfully
+
+  /api/facility:
+    post:
+      tags:
+        - facility
+      summary: Create a new facility
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: Rooftop
+                type:
+                  type: string
+                  example: boarding_house
+      responses:
+        '201':
+          description: Facility created successfully
+
+    get:
+      tags:
+        - facility
+      summary: Get all facilities
+      responses:
+        '200':
+          description: Facilities list retrieved
+
+  /api/facility/{id}:
+    get:
+      tags:
+        - facility
+      summary: Get facility by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          example: 67a007cf98dab4a75173c6b5
+      responses:
+        '200':
+          description: Facility details retrieved
+
+    put:
+      tags:
+        - facility
+      summary: Update facility by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          example: 67a007cf98dab4a75173c6b5
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: Rooftop di Lantai 4
+                type:
+                  type: string
+                  example: boarding_house
+      responses:
+        '200':
+          description: Facility updated successfully
+
+    delete:
+      tags:
+        - facility
+      summary: Delete facility by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          example: 67a007cf98dab4a75173c6b5
+      responses:
+        '200':
+          description: Facility deleted successfully
+    /api/customFacilities:
+    post:
+      tags:
+        - customFacility
+      summary: Create a new custom facility (admin only)
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: Makan Siang dari Warteg Bahari
+                price:
+                  type: integer
+                  example: 300000
+                owner_id:
+                  type: string
+                  example: 676c161877951c4ae20534fa
+      responses:
+        '201':
+          description: Custom facility created successfully
+
+    get:
+      tags:
+        - customFacility
+      summary: Get all custom facilities for owner
+      responses:
+        '200':
+          description: Custom facilities list retrieved
+
+  /api/customFacilities/{id}:
+    get:
+      tags:
+        - customFacility
+      summary: Get custom facility by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          example: 67a00999a41785543e617b91
+      responses:
+        '200':
+          description: Custom facility details retrieved
+
+    put:
+      tags:
+        - customFacility
+      summary: Update custom facility by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          example: 67a00999a41785543e617b91
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: Listrik Rice Cooker
+                price:
+                  type: integer
+                  example: 30000
+      responses:
+        '200':
+          description: Custom facility updated successfully
+
+    delete:
+      tags:
+        - customFacility
+      summary: Delete custom facility by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          example: 679fc7038784cd291588d882
+      responses:
+        '200':
+          description: Custom facility deleted successfully
+
+  /api/customFacilities/admin:
+    get:
+      tags:
+        - customFacility
+      summary: Get all custom facilities by admin with owner_id filter
+      parameters:
+        - name: owner_id
+          in: query
+          schema:
+            type: string
+          example: 676c161877951c4ae20534fa
+      responses:
+        '200':
+          description: Custom facilities list retrieved
+  /api/boardingHouses:
+    post:
+      tags:
+        - boardingHouse
+      summary: Create a new boarding house (Owner only)
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: Kos Karina
+                address:
+                  type: string
+                  example: Jl. Kwangya
+                category_id:
+                  type: string
+                  example: 6782a4a3ce3fab5e128cf500
+                description:
+                  type: string
+                  example: Lokasi Strategis, Dekat dengan kampus
+                rules:
+                  type: string
+                  example: Piket seminggu sekali
+                facilities:
+                  type: array
+                  items:
+                    type: string
+                  example: ["679d31601c7dbc4fe53fd90f", "679fbd39710193d32f39c4c9", "67829f775e49e3a9bdd02399"]
+                images:
+                  type: string
+                  format: binary
+      responses:
+        '201':
+          description: Boarding house created successfully
+
+    get:
+      tags:
+        - boardingHouse
+      summary: Get all boarding houses
+      responses:
+        '200':
+          description: Boarding houses list retrieved
+
+  /api/boardingHouses/{id}:
+    get:
+      tags:
+        - boardingHouse
+      summary: Get boarding house by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          example: 679fc9e68784cd291588d883
+      responses:
+        '200':
+          description: Boarding house details retrieved
+
+    put:
+      tags:
+        - boardingHouse
+      summary: Update boarding house by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          example: 679fc9e68784cd291588d883
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: Kos Naevis
+                address:
+                  type: string
+                  example: Jl. Soomantri No.30, Sarijadi, Kec. Sukasari, Kota Bandung, Jawa Barat 40151
+                description:
+                  type: string
+                  example: Terdapat petugas kebersihan yang bertugas seminggu sekali
+                rules:
+                  type: string
+                  example: Tidak Boleh Membawa Teman Laki-Laki Menginap
+                category_id:
+                  type: string
+                  example: 6782a4a3ce3fab5e128cf500
+                facilities:
+                  type: array
+                  items:
+                    type: string
+                  example: ["67829f2f5e49e3a9bdd02394", "67829f375e49e3a9bdd02395", "67829f475e49e3a9bdd02396"]
+                images:
+                  type: string
+                  format: binary
+      responses:
+        '200':
+          description: Boarding house updated successfully
+
+    delete:
+      tags:
+        - boardingHouse
+      summary: Delete boarding house by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          example: 6782bfa2408e18739080835a
+      responses:
+        '200':
+          description: Boarding house deleted successfully
+
+  /api/boardingHouses/owner:
+    get:
+      tags:
+        - boardingHouse
+      summary: Get all boarding houses owned by authenticated owner
+      responses:
+        '200':
+          description: Boarding houses list retrieved for owner
+
+  /api/boardingHouses/{id}/detail:
+    get:
+      tags:
+        - boardingHouse
+      summary: Get detailed boarding house information by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          example: 679fc9e68784cd291588d883
+      responses:
+        '200':
+          description: Boarding house details retrieved
+  /api/rooms:
+    get:
+      tags:
+        - room
+      summary: Get all rooms
+      responses:
+        '200':
+          description: Rooms list retrieved
+
+  /api/rooms/{id}:
+    get:
+      tags:
+        - room
+      summary: Get room by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          example: 679f9097ebed047dadcc5833
+      responses:
+        '200':
+          description: Room details retrieved
+
+    delete:
+      tags:
+        - room
+      summary: Delete room by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          example: 679f903555a47b948f9fc56c
+      responses:
+        '200':
+          description: Room deleted successfully
+
+  /api/rooms/boarding-house/{boardingHouseID}:
+    get:
+      tags:
+        - room
+      summary: Get all rooms in a specific boarding house
+      parameters:
+        - name: boardingHouseID
+          in: path
+          required: true
+          schema:
+            type: string
+          example: 679fc9e68784cd291588d883
+      responses:
+        '200':
+          description: Rooms list retrieved for boarding house
+
+  /api/rooms/home:
+    get:
+      tags:
+        - room
+      summary: Get featured rooms for homepage
+      responses:
+        '200':
+          description: Featured rooms list retrieved
+
+  /api/rooms/{id}/pages:
+    get:
+      tags:
+        - room
+      summary: Get paginated details of room by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          example: 678ff019ffdf62c251ac4b2f
+      responses:
+        '200':
+          description: Room paginated details retrieved
+
+  /api/rooms/{id}/detail:
+    get:
+      tags:
+        - room
+      summary: Get detailed room information by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          example: 678ff019ffdf62c251ac4b2f
+      responses:
+        '200':
+          description: Room details retrieved
+  components:
+  parameters:
+    Authorization:
+      name: Authorization
+      in: header
+      required: true
+      schema:
+        type: string
+        example: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3Mzg2MjQ5ODUsImlhdCI6MTczODUzODU4NSwicm9sZSI6InVzZXIiLCJ1c2VyX2lkIjoiNjc4NTRhMjllNGI3YTE5ODg2YmZkYmNkIn0.im1ECSYzT4igkdhFy7PJpdajoiaNnG3HEaKIbaeSkDU"
+
+paths:
+  /api/transaction:
+    post:
+      tags:
+        - transaction
+      summary: Create a new transaction
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                personal_info:
+                  full_name: Fathya Fathimah Azzahra
+                  email: 714220012@std.ulbi.ac.id
+                  phone_number: '+6285759043680'
+                custom_facilities:
+                  - 679fc2938ce2a6af5720b149
+                  - 679fc7038784cd291588d882
+                  - 67827a8de860b172001d60a6
+                payment_term: semi_annual
+                check_in_date: '2025-02-05'
+      parameters:
+        - name: room_id
+          in: query
+          required: true
+          schema:
+            type: string
+          example: 679ff9a92dd7df11b3a089ad
+        - name: boarding_house_id
+          in: query
+          required: true
+          schema:
+            type: string
+          example: 679fc9e68784cd291588d883
+        - name: owner_id
+          in: query
+          required: true
+          schema:
+            type: string
+          example: 676c161877951c4ae20534fa
+        - name: user_id
+          in: query
+          required: true
+          schema:
+            type: string
+          example: 67854a29e4b7a19886bfdbcd
+      responses:
+        '200':
+          description: Transaction created successfully
+
+  /api/transaction/user:
+    get:
+      tags:
+        - transaction
+      summary: Get transactions of the current user
+      responses:
+        '200':
+          description: List of transactions for the user
+
+  /api/transaction/{transaction_id}:
+    get:
+      tags:
+        - transaction
+      summary: Get transaction details by ID
+      parameters:
+        - name: transaction_id
+          in: path
+          required: true
+          schema:
+            type: string
+          example: 679fff6e2dd7df11b3a089b1
+      responses:
+        '200':
+          description: Transaction details retrieved
+
+    delete:
+      tags:
+        - transaction
+      summary: Delete a transaction by ID
+      parameters:
+        - name: transaction_id
+          in: path
+          required: true
+          schema:
+            type: string
+          example: 678e7c7da5daee71bdf879e4
+      responses:
+        '200':
+          description: Transaction deleted successfully
+
+  /api/transaction/{transaction_id}/payment:
+    post:
+      tags:
+        - transaction
+      summary: Process payment for a specific transaction
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+      parameters:
+        - name: transaction_id
+          in: path
+          required: true
+          schema:
+            type: string
+          example: 679fff6e2dd7df11b3a089b1
+      responses:
+        '200':
+          description: Payment processed successfully
+
+  /api/transaction/owner:
+    get:
+      tags:
+        - transaction
+      summary: Get transactions for the owner
+      responses:
+        '200':
+          description: List of transactions for the owner
+
+  /api/transaction/admin/user/{user_id}:
+    get:
+      tags:
+        - transaction
+      summary: Get transactions for a specific user as admin
+      parameters:
+        - name: user_id
+          in: path
+          required: true
+          schema:
+            type: string
+          example: 67854a29e4b7a19886bfdbcd
+      responses:
+        '200':
+          description: Transactions of the specific user retrieved
+
+  /api/transaction/admin/owner/{owner_id}:
+    get:
+      tags:
+        - transaction
+      summary: Get transactions for a specific owner as admin
+      parameters:
+        - name: owner_id
+          in: path
+          required: true
+          schema:
+            type: string
+          example: 676c161877951c4ae20534fa
+      responses:
+        '200':
+          description: Transactions of the specific owner retrieved

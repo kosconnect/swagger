@@ -1,0 +1,2052 @@
+{
+	"info": {
+		"_postman_id": "50bb42b7-d2b1-4fc7-8775-869f6ea3750e",
+		"name": "kosconnect",
+		"description": "# 🚀 Get started here\n\nThis template guides you through CRUD operations (GET, POST, PUT, DELETE), variables, and tests.\n\n## 🔖 **How to use this template**\n\n#### **Step 1: Send requests**\n\nRESTful APIs allow you to perform CRUD operations using the POST, GET, PUT, and DELETE HTTP methods.\n\nThis collection contains each of these [request](https://learning.postman.com/docs/sending-requests/requests/) types. Open each request and click \"Send\" to see what happens.\n\n#### **Step 2: View responses**\n\nObserve the response tab for status code (200 OK), response time, and size.\n\n#### **Step 3: Send new Body data**\n\nUpdate or add new data in \"Body\" in the POST request. Typically, Body data is also used in PUT request.\n\n```\n{\n    \"name\": \"Add your name in the body\"\n}\n\n ```\n\n#### **Step 4: Update the variable**\n\nVariables enable you to store and reuse values in Postman. We have created a [variable](https://learning.postman.com/docs/sending-requests/variables/) called `base_url` with the sample request [https://postman-api-learner.glitch.me](https://postman-api-learner.glitch.me). Replace it with your API endpoint to customize this collection.\n\n#### **Step 5: Add tests in the \"Scripts\" tab**\n\nAdding tests to your requests can help you confirm that your API is working as expected. You can write test scripts in JavaScript and view the output in the \"Test Results\" tab.\n\n<img src=\"https://content.pstmn.io/fa30ea0a-373d-4545-a668-e7b283cca343/aW1hZ2UucG5n\" alt=\"\" height=\"1530\" width=\"2162\">\n\n## 💪 Pro tips\n\n- Use folders to group related requests and organize the collection.\n    \n- Add more [scripts](https://learning.postman.com/docs/writing-scripts/intro-to-scripts/) to verify if the API works as expected and execute workflows.\n    \n\n## 💡Related templates\n\n[API testing basics](https://go.postman.co/redirect/workspace?type=personal&collectionTemplateId=e9a37a28-055b-49cd-8c7e-97494a21eb54&sourceTemplateId=ddb19591-3097-41cf-82af-c84273e56719)  \n[API documentation](https://go.postman.co/redirect/workspace?type=personal&collectionTemplateId=e9c28f47-1253-44af-a2f3-20dce4da1f18&sourceTemplateId=ddb19591-3097-41cf-82af-c84273e56719)  \n[Authorization methods](https://go.postman.co/redirect/workspace?type=personal&collectionTemplateId=31a9a6ed-4cdf-4ced-984c-d12c9aec1c27&sourceTemplateId=ddb19591-3097-41cf-82af-c84273e56719)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "33355683"
+	},
+	"item": [
+		{
+			"name": "auth",
+			"item": [
+				{
+					"name": "/auth/register",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful POST request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"fullname\": \"Siti\",\n    \"email\": \"skresmiamenun@gmail.com\",\n    \"role\": \"user\",\n    \"password\": \"bundania123\"\n    \n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://kosconnect-server.vercel.app/auth/register",
+							"protocol": "https",
+							"host": [
+								"kosconnect-server",
+								"vercel",
+								"app"
+							],
+							"path": [
+								"auth",
+								"register"
+							]
+						},
+						"description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
+					},
+					"response": []
+				},
+				{
+					"name": "/auth/login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"fathyapremium@gmail.com\",\r\n    \"password\": \"fathya123\"\r\n    \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://kosconnect-server.vercel.app/auth/login",
+							"protocol": "https",
+							"host": [
+								"kosconnect-server",
+								"vercel",
+								"app"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "users",
+			"item": [
+				{
+					"name": "/api/users:id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful PUT request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 201, 204]);",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3Mzg2MjU2NTcsImlhdCI6MTczODUzOTI1Nywicm9sZSI6ImFkbWluIiwidXNlcl9pZCI6IjY3ODM1MTgyZTUxYWU2MmM1ZTA1MzBjOCJ9.zlKEmNFhTmItmLxFExq-IhLWVJjyF_pPovOHpOSF9Rc",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"fullname\": \"Fathya Fathimah\",\n    \"email\": \"714220012@std.ulbi.ac.id\"\n    \n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://kosconnect-server.vercel.app/api/users/67854a29e4b7a19886bfdbcd",
+							"protocol": "https",
+							"host": [
+								"kosconnect-server",
+								"vercel",
+								"app"
+							],
+							"path": [
+								"api",
+								"users",
+								"67854a29e4b7a19886bfdbcd"
+							]
+						},
+						"description": "This is a PUT request and it is used to overwrite an existing piece of data. For instance, after you create an entity with a POST request, you may want to modify that later. You can do that using a PUT request. You typically identify the entity being updated by including an identifier in the URL (eg. `id=1`).\n\nA successful PUT request typically returns a `200 OK`, `201 Created`, or `204 No Content` response code."
+					},
+					"response": []
+				},
+				{
+					"name": "/api/users/:id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful DELETE request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 202, 204]);",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3Mzg2MjU2NTcsImlhdCI6MTczODUzOTI1Nywicm9sZSI6ImFkbWluIiwidXNlcl9pZCI6IjY3ODM1MTgyZTUxYWU2MmM1ZTA1MzBjOCJ9.zlKEmNFhTmItmLxFExq-IhLWVJjyF_pPovOHpOSF9Rc",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://kosconnect-server.vercel.app/api/users/678216730bf7bd2671c3e154",
+							"protocol": "https",
+							"host": [
+								"kosconnect-server",
+								"vercel",
+								"app"
+							],
+							"path": [
+								"api",
+								"users",
+								"678216730bf7bd2671c3e154"
+							]
+						},
+						"description": "This is a DELETE request, and it is used to delete data that was previously created via a POST request. You typically identify the entity being updated by including an identifier in the URL (eg. `id=1`).\n\nA successful DELETE request typically returns a `200 OK`, `202 Accepted`, or `204 No Content` response code."
+					},
+					"response": []
+				},
+				{
+					"name": "/api/users/me",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3Mzg2MjU2NTcsImlhdCI6MTczODUzOTI1Nywicm9sZSI6ImFkbWluIiwidXNlcl9pZCI6IjY3ODM1MTgyZTUxYWU2MmM1ZTA1MzBjOCJ9.zlKEmNFhTmItmLxFExq-IhLWVJjyF_pPovOHpOSF9Rc",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://kosconnect-server.vercel.app/api/users/me",
+							"protocol": "https",
+							"host": [
+								"kosconnect-server",
+								"vercel",
+								"app"
+							],
+							"path": [
+								"api",
+								"users",
+								"me"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/users",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3Mzg2MjU2NTcsImlhdCI6MTczODUzOTI1Nywicm9sZSI6ImFkbWluIiwidXNlcl9pZCI6IjY3ODM1MTgyZTUxYWU2MmM1ZTA1MzBjOCJ9.zlKEmNFhTmItmLxFExq-IhLWVJjyF_pPovOHpOSF9Rc",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://kosconnect-server.vercel.app/api/users/",
+							"protocol": "https",
+							"host": [
+								"kosconnect-server",
+								"vercel",
+								"app"
+							],
+							"path": [
+								"api",
+								"users",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/users/:id",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3Mzg2MjU2NTcsImlhdCI6MTczODUzOTI1Nywicm9sZSI6ImFkbWluIiwidXNlcl9pZCI6IjY3ODM1MTgyZTUxYWU2MmM1ZTA1MzBjOCJ9.zlKEmNFhTmItmLxFExq-IhLWVJjyF_pPovOHpOSF9Rc",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://kosconnect-server.vercel.app/api/users/67821a8159a5f0be2be1a561",
+							"protocol": "https",
+							"host": [
+								"kosconnect-server",
+								"vercel",
+								"app"
+							],
+							"path": [
+								"api",
+								"users",
+								"67821a8159a5f0be2be1a561"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/users/:id/role",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3Mzg2MjU2NTcsImlhdCI6MTczODUzOTI1Nywicm9sZSI6ImFkbWluIiwidXNlcl9pZCI6IjY3ODM1MTgyZTUxYWU2MmM1ZTA1MzBjOCJ9.zlKEmNFhTmItmLxFExq-IhLWVJjyF_pPovOHpOSF9Rc",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"role\": \"user\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://kosconnect-server.vercel.app/api/users/678216730bf7bd2671c3e154/role",
+							"protocol": "https",
+							"host": [
+								"kosconnect-server",
+								"vercel",
+								"app"
+							],
+							"path": [
+								"api",
+								"users",
+								"678216730bf7bd2671c3e154",
+								"role"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/users/owner",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3Mzg2MjU2NTcsImlhdCI6MTczODUzOTI1Nywicm9sZSI6ImFkbWluIiwidXNlcl9pZCI6IjY3ODM1MTgyZTUxYWU2MmM1ZTA1MzBjOCJ9.zlKEmNFhTmItmLxFExq-IhLWVJjyF_pPovOHpOSF9Rc",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://kosconnect-server.vercel.app/api/users/owner",
+							"protocol": "https",
+							"host": [
+								"kosconnect-server",
+								"vercel",
+								"app"
+							],
+							"path": [
+								"api",
+								"users",
+								"owner"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "category",
+			"item": [
+				{
+					"name": "/api/categories",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3Mzg2MDYyOTQsImlhdCI6MTczODUxOTg5NCwicm9sZSI6ImFkbWluIiwidXNlcl9pZCI6IjY3ODM1MTgyZTUxYWU2MmM1ZTA1MzBjOCJ9.O8ejYjg6oGqtnEF0t9zUhYjpNBnk46rBo4KsD-dlGuc",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Kos Keluarga\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://kosconnect-server.vercel.app/api/categories",
+							"protocol": "https",
+							"host": [
+								"kosconnect-server",
+								"vercel",
+								"app"
+							],
+							"path": [
+								"api",
+								"categories"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/categories",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://kosconnect-server.vercel.app/api/categories",
+							"protocol": "https",
+							"host": [
+								"kosconnect-server",
+								"vercel",
+								"app"
+							],
+							"path": [
+								"api",
+								"categories"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/categories/:id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://kosconnect-server.vercel.app/api/categories/67a007206f265d5bbcdd78cd",
+							"protocol": "https",
+							"host": [
+								"kosconnect-server",
+								"vercel",
+								"app"
+							],
+							"path": [
+								"api",
+								"categories",
+								"67a007206f265d5bbcdd78cd"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/categories/:id",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3Mzg2MjU2NTcsImlhdCI6MTczODUzOTI1Nywicm9sZSI6ImFkbWluIiwidXNlcl9pZCI6IjY3ODM1MTgyZTUxYWU2MmM1ZTA1MzBjOCJ9.zlKEmNFhTmItmLxFExq-IhLWVJjyF_pPovOHpOSF9Rc",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Kos Pria\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://kosconnect-server.vercel.app/api/categories/67a007206f265d5bbcdd78cd",
+							"protocol": "https",
+							"host": [
+								"kosconnect-server",
+								"vercel",
+								"app"
+							],
+							"path": [
+								"api",
+								"categories",
+								"67a007206f265d5bbcdd78cd"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/categories/:id",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3Mzg2MDYyOTQsImlhdCI6MTczODUxOTg5NCwicm9sZSI6ImFkbWluIiwidXNlcl9pZCI6IjY3ODM1MTgyZTUxYWU2MmM1ZTA1MzBjOCJ9.O8ejYjg6oGqtnEF0t9zUhYjpNBnk46rBo4KsD-dlGuc",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://kosconnect-server.vercel.app/api/categories/67a007206f265d5bbcdd78cd",
+							"protocol": "https",
+							"host": [
+								"kosconnect-server",
+								"vercel",
+								"app"
+							],
+							"path": [
+								"api",
+								"categories",
+								"67a007206f265d5bbcdd78cd"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "facility",
+			"item": [
+				{
+					"name": "/api/facility",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3Mzg2MDYyOTQsImlhdCI6MTczODUxOTg5NCwicm9sZSI6ImFkbWluIiwidXNlcl9pZCI6IjY3ODM1MTgyZTUxYWU2MmM1ZTA1MzBjOCJ9.O8ejYjg6oGqtnEF0t9zUhYjpNBnk46rBo4KsD-dlGuc",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Rooftop\",\r\n    \"type\": \"boarding_house\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://kosconnect-server.vercel.app/api/facility",
+							"protocol": "https",
+							"host": [
+								"kosconnect-server",
+								"vercel",
+								"app"
+							],
+							"path": [
+								"api",
+								"facility"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/facility",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3Mzg2MjU2NTcsImlhdCI6MTczODUzOTI1Nywicm9sZSI6ImFkbWluIiwidXNlcl9pZCI6IjY3ODM1MTgyZTUxYWU2MmM1ZTA1MzBjOCJ9.zlKEmNFhTmItmLxFExq-IhLWVJjyF_pPovOHpOSF9Rc",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://kosconnect-server.vercel.app/api/facility",
+							"protocol": "https",
+							"host": [
+								"kosconnect-server",
+								"vercel",
+								"app"
+							],
+							"path": [
+								"api",
+								"facility"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/facility/:id",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3Mzg2MjU2NTcsImlhdCI6MTczODUzOTI1Nywicm9sZSI6ImFkbWluIiwidXNlcl9pZCI6IjY3ODM1MTgyZTUxYWU2MmM1ZTA1MzBjOCJ9.zlKEmNFhTmItmLxFExq-IhLWVJjyF_pPovOHpOSF9Rc",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://kosconnect-server.vercel.app/api/facility/67a007cf98dab4a75173c6b5",
+							"protocol": "https",
+							"host": [
+								"kosconnect-server",
+								"vercel",
+								"app"
+							],
+							"path": [
+								"api",
+								"facility",
+								"67a007cf98dab4a75173c6b5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/facility/type?type=room",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3Mzg2MjU2NTcsImlhdCI6MTczODUzOTI1Nywicm9sZSI6ImFkbWluIiwidXNlcl9pZCI6IjY3ODM1MTgyZTUxYWU2MmM1ZTA1MzBjOCJ9.zlKEmNFhTmItmLxFExq-IhLWVJjyF_pPovOHpOSF9Rc",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://kosconnect-server.vercel.app/api/facility/type?type=room",
+							"protocol": "https",
+							"host": [
+								"kosconnect-server",
+								"vercel",
+								"app"
+							],
+							"path": [
+								"api",
+								"facility",
+								"type"
+							],
+							"query": [
+								{
+									"key": "type",
+									"value": "room"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/facility/type?type=boarding_house",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3Mzg2MjU2NTcsImlhdCI6MTczODUzOTI1Nywicm9sZSI6ImFkbWluIiwidXNlcl9pZCI6IjY3ODM1MTgyZTUxYWU2MmM1ZTA1MzBjOCJ9.zlKEmNFhTmItmLxFExq-IhLWVJjyF_pPovOHpOSF9Rc",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://kosconnect-server.vercel.app/api/facility/type?type=boarding_house",
+							"protocol": "https",
+							"host": [
+								"kosconnect-server",
+								"vercel",
+								"app"
+							],
+							"path": [
+								"api",
+								"facility",
+								"type"
+							],
+							"query": [
+								{
+									"key": "type",
+									"value": "boarding_house"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/facility/:id",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3Mzg2MjU2NTcsImlhdCI6MTczODUzOTI1Nywicm9sZSI6ImFkbWluIiwidXNlcl9pZCI6IjY3ODM1MTgyZTUxYWU2MmM1ZTA1MzBjOCJ9.zlKEmNFhTmItmLxFExq-IhLWVJjyF_pPovOHpOSF9Rc",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Rooftop di Lantai 4\",\r\n    \"type\": \"boarding_house\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://kosconnect-server.vercel.app/api/facility/67a007cf98dab4a75173c6b5",
+							"protocol": "https",
+							"host": [
+								"kosconnect-server",
+								"vercel",
+								"app"
+							],
+							"path": [
+								"api",
+								"facility",
+								"67a007cf98dab4a75173c6b5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/facility/:id",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3Mzg2MjU2NTcsImlhdCI6MTczODUzOTI1Nywicm9sZSI6ImFkbWluIiwidXNlcl9pZCI6IjY3ODM1MTgyZTUxYWU2MmM1ZTA1MzBjOCJ9.zlKEmNFhTmItmLxFExq-IhLWVJjyF_pPovOHpOSF9Rc ",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://kosconnect-server.vercel.app/api/facility/67a007cf98dab4a75173c6b5",
+							"protocol": "https",
+							"host": [
+								"kosconnect-server",
+								"vercel",
+								"app"
+							],
+							"path": [
+								"api",
+								"facility",
+								"67a007cf98dab4a75173c6b5"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "customFacility",
+			"item": [
+				{
+					"name": "/api/customFacilities by owner",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3Mzg2MDk2MDQsImlhdCI6MTczODUyMzIwNCwicm9sZSI6Im93bmVyIiwidXNlcl9pZCI6IjY3NmMxNjE4Nzc5NTFjNGFlMjA1MzRmYSJ9.hKd7QcO-haqWRuuu1_gVdfteBdnbirmBttwCXx-EC9k",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Listrik Rice Cooker Per Bulan\",\r\n    \"price\": 25000\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://kosconnect-server.vercel.app/api/customFacilities",
+							"protocol": "https",
+							"host": [
+								"kosconnect-server",
+								"vercel",
+								"app"
+							],
+							"path": [
+								"api",
+								"customFacilities"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/customFacilities by admin",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3Mzg2MDYyOTQsImlhdCI6MTczODUxOTg5NCwicm9sZSI6ImFkbWluIiwidXNlcl9pZCI6IjY3ODM1MTgyZTUxYWU2MmM1ZTA1MzBjOCJ9.O8ejYjg6oGqtnEF0t9zUhYjpNBnk46rBo4KsD-dlGuc",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Makan Siang dari Warteg Bahari\",\r\n    \"price\": 300000,\r\n    \"owner_id\": \"676c161877951c4ae20534fa\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://kosconnect-server.vercel.app/api/customFacilities",
+							"protocol": "https",
+							"host": [
+								"kosconnect-server",
+								"vercel",
+								"app"
+							],
+							"path": [
+								"api",
+								"customFacilities"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/customFacilities",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3Mzg2MjU2NTcsImlhdCI6MTczODUzOTI1Nywicm9sZSI6ImFkbWluIiwidXNlcl9pZCI6IjY3ODM1MTgyZTUxYWU2MmM1ZTA1MzBjOCJ9.zlKEmNFhTmItmLxFExq-IhLWVJjyF_pPovOHpOSF9Rc ",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://kosconnect-server.vercel.app/api/customFacilities",
+							"protocol": "https",
+							"host": [
+								"kosconnect-server",
+								"vercel",
+								"app"
+							],
+							"path": [
+								"api",
+								"customFacilities"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/customFacilities/:id",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3Mzg2MDk2MDQsImlhdCI6MTczODUyMzIwNCwicm9sZSI6Im93bmVyIiwidXNlcl9pZCI6IjY3NmMxNjE4Nzc5NTFjNGFlMjA1MzRmYSJ9.hKd7QcO-haqWRuuu1_gVdfteBdnbirmBttwCXx-EC9k",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://kosconnect-server.vercel.app/api/customFacilities/67a00999a41785543e617b91",
+							"protocol": "https",
+							"host": [
+								"kosconnect-server",
+								"vercel",
+								"app"
+							],
+							"path": [
+								"api",
+								"customFacilities",
+								"67a00999a41785543e617b91"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/customFacilities/owner",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3Mzg2MDk2MDQsImlhdCI6MTczODUyMzIwNCwicm9sZSI6Im93bmVyIiwidXNlcl9pZCI6IjY3NmMxNjE4Nzc5NTFjNGFlMjA1MzRmYSJ9.hKd7QcO-haqWRuuu1_gVdfteBdnbirmBttwCXx-EC9k",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://kosconnect-server.vercel.app/api/customFacilities",
+							"protocol": "https",
+							"host": [
+								"kosconnect-server",
+								"vercel",
+								"app"
+							],
+							"path": [
+								"api",
+								"customFacilities"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/customFacilities/admin/?owner_id",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3Mzg2MjU2NTcsImlhdCI6MTczODUzOTI1Nywicm9sZSI6ImFkbWluIiwidXNlcl9pZCI6IjY3ODM1MTgyZTUxYWU2MmM1ZTA1MzBjOCJ9.zlKEmNFhTmItmLxFExq-IhLWVJjyF_pPovOHpOSF9Rc ",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://kosconnect-server.vercel.app/api/customFacilities/admin/?owner_id=676c161877951c4ae20534fa",
+							"protocol": "https",
+							"host": [
+								"kosconnect-server",
+								"vercel",
+								"app"
+							],
+							"path": [
+								"api",
+								"customFacilities",
+								"admin",
+								""
+							],
+							"query": [
+								{
+									"key": "owner_id",
+									"value": "676c161877951c4ae20534fa"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/customFacilities/:id",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3Mzg2MDk2MDQsImlhdCI6MTczODUyMzIwNCwicm9sZSI6Im93bmVyIiwidXNlcl9pZCI6IjY3NmMxNjE4Nzc5NTFjNGFlMjA1MzRmYSJ9.hKd7QcO-haqWRuuu1_gVdfteBdnbirmBttwCXx-EC9k",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Listrik Rice Cooker\",\r\n    \"price\": 30000\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://kosconnect-server.vercel.app/api/customFacilities/67a00999a41785543e617b91",
+							"protocol": "https",
+							"host": [
+								"kosconnect-server",
+								"vercel",
+								"app"
+							],
+							"path": [
+								"api",
+								"customFacilities",
+								"67a00999a41785543e617b91"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/customFacilities:id",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3Mzg2MDk2MDQsImlhdCI6MTczODUyMzIwNCwicm9sZSI6Im93bmVyIiwidXNlcl9pZCI6IjY3NmMxNjE4Nzc5NTFjNGFlMjA1MzRmYSJ9.hKd7QcO-haqWRuuu1_gVdfteBdnbirmBttwCXx-EC9k",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"AC\",\r\n    \"price\": 50000\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://kosconnect-server.vercel.app/api/customFacilities/679fc7038784cd291588d882",
+							"protocol": "https",
+							"host": [
+								"kosconnect-server",
+								"vercel",
+								"app"
+							],
+							"path": [
+								"api",
+								"customFacilities",
+								"679fc7038784cd291588d882"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "boardingHouse",
+			"item": [
+				{
+					"name": "/api/boardingHouses by admin",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3Mzg2MjU2NTcsImlhdCI6MTczODUzOTI1Nywicm9sZSI6ImFkbWluIiwidXNlcl9pZCI6IjY3ODM1MTgyZTUxYWU2MmM1ZTA1MzBjOCJ9.zlKEmNFhTmItmLxFExq-IhLWVJjyF_pPovOHpOSF9Rc ",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "Kos Karina",
+									"type": "text"
+								},
+								{
+									"key": "address",
+									"value": "Jl. Kwangya",
+									"type": "text"
+								},
+								{
+									"key": "category_id",
+									"value": "6782a4a3ce3fab5e128cf500",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "Lokasi Strategis, Dekat dengan kampus",
+									"type": "text"
+								},
+								{
+									"key": "rules",
+									"value": "Piket seminggu sekali",
+									"type": "text"
+								},
+								{
+									"key": "facilities",
+									"value": "[\"679d31601c7dbc4fe53fd90f\", \"679fbd39710193d32f39c4c9\", \"67829f775e49e3a9bdd02399\"]",
+									"type": "text"
+								},
+								{
+									"key": "images",
+									"type": "file",
+									"src": [
+										"/E:/Tugas Fathya/Proyek 3/gambar kos/kos4-1.jpg",
+										"/E:/Tugas Fathya/Proyek 3/gambar kos/kos4.jpg"
+									]
+								},
+								{
+									"key": "owner_id",
+									"value": "676c161877951c4ae20534fa",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://kosconnect-server.vercel.app/api/boardingHouses",
+							"protocol": "https",
+							"host": [
+								"kosconnect-server",
+								"vercel",
+								"app"
+							],
+							"path": [
+								"api",
+								"boardingHouses"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/boardingHouses by Owner",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3Mzg2MjQzNzUsImlhdCI6MTczODUzNzk3NSwicm9sZSI6Im93bmVyIiwidXNlcl9pZCI6IjY3NmMxNjE4Nzc5NTFjNGFlMjA1MzRmYSJ9.t86VBuYS-QOohJawh5nVnOQAf3sBkMul7xfJdOXU0xQ",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "Kos Karina",
+									"type": "text"
+								},
+								{
+									"key": "address",
+									"value": "Jl. Kwangya",
+									"type": "text"
+								},
+								{
+									"key": "category_id",
+									"value": "6782a4a3ce3fab5e128cf500",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "Lokasi Strategis, Dekat dengan kampus",
+									"type": "text"
+								},
+								{
+									"key": "rules",
+									"value": "Piket seminggu sekali",
+									"type": "text"
+								},
+								{
+									"key": "facilities",
+									"value": "[\"679d31601c7dbc4fe53fd90f\", \"679fbd39710193d32f39c4c9\", \"67829f775e49e3a9bdd02399\"]",
+									"type": "text"
+								},
+								{
+									"key": "images",
+									"type": "file",
+									"src": [
+										"/E:/Tugas Fathya/Proyek 3/gambar kos/kos4-1.jpg",
+										"/E:/Tugas Fathya/Proyek 3/gambar kos/kos4.jpg"
+									]
+								}
+							]
+						},
+						"url": {
+							"raw": "https://kosconnect-server.vercel.app/api/boardingHouses",
+							"protocol": "https",
+							"host": [
+								"kosconnect-server",
+								"vercel",
+								"app"
+							],
+							"path": [
+								"api",
+								"boardingHouses"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/boardingHouses/:id",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3Mzg2MDk2MDQsImlhdCI6MTczODUyMzIwNCwicm9sZSI6Im93bmVyIiwidXNlcl9pZCI6IjY3NmMxNjE4Nzc5NTFjNGFlMjA1MzRmYSJ9.hKd7QcO-haqWRuuu1_gVdfteBdnbirmBttwCXx-EC9k",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "multipart/form-data",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "Kos Naevis",
+									"type": "text"
+								},
+								{
+									"key": "address",
+									"value": "Jl. Soomantri No.30, Sarijadi, Kec. Sukasari, Kota Bandung, Jawa Barat 40151",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "Terdapat petugas kebersihan yang bertugas seminggu sekali",
+									"type": "text"
+								},
+								{
+									"key": "rules",
+									"value": "Tidak Boleh Membawa Teman Laki-Laki Menginap",
+									"type": "text"
+								},
+								{
+									"key": "category_id",
+									"value": "6782a4a3ce3fab5e128cf500",
+									"type": "text"
+								},
+								{
+									"key": "facilities",
+									"value": "[\"67829f2f5e49e3a9bdd02394\", \"67829f375e49e3a9bdd02395\", \"67829f475e49e3a9bdd02396\"]",
+									"type": "text"
+								},
+								{
+									"key": "images",
+									"type": "file",
+									"src": [
+										"/E:/Tugas Fathya/Proyek 3/gambar kos/kos4.jpg",
+										"/E:/Tugas Fathya/Proyek 3/gambar kos/kos4-1.jpg"
+									]
+								},
+								{
+									"key": "owner_id",
+									"value": "676c161877951c4ae20534fa",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "https://kosconnect-server.vercel.app/api/boardingHouses/679fc9e68784cd291588d883",
+							"protocol": "https",
+							"host": [
+								"kosconnect-server",
+								"vercel",
+								"app"
+							],
+							"path": [
+								"api",
+								"boardingHouses",
+								"679fc9e68784cd291588d883"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/boardingHouses/",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://kosconnect-server.vercel.app/api/boardingHouses/",
+							"protocol": "https",
+							"host": [
+								"kosconnect-server",
+								"vercel",
+								"app"
+							],
+							"path": [
+								"api",
+								"boardingHouses",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/hoardingHouses/:id/detail",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MzQ5MzY1NDQsInJvbGUiOiJ1c2VyIiwidXNlcl9pZCI6IjY3NjdiNDg5MWMwY2YyOTgwYzlkOGI4NCJ9.ymwmpFSUx2H80dgzYMYPsOZ2CrIlUhHfY0DNeWF0Uag",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://kosconnect-server.vercel.app/api/boardingHouses/679fc9e68784cd291588d883/detail",
+							"protocol": "https",
+							"host": [
+								"kosconnect-server",
+								"vercel",
+								"app"
+							],
+							"path": [
+								"api",
+								"boardingHouses",
+								"679fc9e68784cd291588d883",
+								"detail"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/boardingHouses/:id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://kosconnect-server.vercel.app/api/boardingHouses/679fc9e68784cd291588d883",
+							"protocol": "https",
+							"host": [
+								"kosconnect-server",
+								"vercel",
+								"app"
+							],
+							"path": [
+								"api",
+								"boardingHouses",
+								"679fc9e68784cd291588d883"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/boardingHouses/owner",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3Mzg2MjQzNzUsImlhdCI6MTczODUzNzk3NSwicm9sZSI6Im93bmVyIiwidXNlcl9pZCI6IjY3NmMxNjE4Nzc5NTFjNGFlMjA1MzRmYSJ9.t86VBuYS-QOohJawh5nVnOQAf3sBkMul7xfJdOXU0xQ",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://kosconnect-server.vercel.app/api/boardingHouses/owner",
+							"protocol": "https",
+							"host": [
+								"kosconnect-server",
+								"vercel",
+								"app"
+							],
+							"path": [
+								"api",
+								"boardingHouses",
+								"owner"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/boardingHouses/:id",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3Mzg2MDk2MDQsImlhdCI6MTczODUyMzIwNCwicm9sZSI6Im93bmVyIiwidXNlcl9pZCI6IjY3NmMxNjE4Nzc5NTFjNGFlMjA1MzRmYSJ9.hKd7QcO-haqWRuuu1_gVdfteBdnbirmBttwCXx-EC9k",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Air Conditioner\",\r\n    \"price\": 50000\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://kosconnect-server.vercel.app/api/boardingHouses/6782bfa2408e18739080835a",
+							"protocol": "https",
+							"host": [
+								"kosconnect-server",
+								"vercel",
+								"app"
+							],
+							"path": [
+								"api",
+								"boardingHouses",
+								"6782bfa2408e18739080835a"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "room",
+			"item": [
+				{
+					"name": "/api/rooms/:boardingHouseID",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3Mzg2MjM1OTksImlhdCI6MTczODUzNzE5OSwicm9sZSI6Im93bmVyIiwidXNlcl9pZCI6IjY3NmMxNjE4Nzc5NTFjNGFlMjA1MzRmYSJ9.IEkrSIiQEsA6nVKbuIYgcUq1se11fwbzuIA81p1GKSM",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "room_type",
+									"value": "Studio",
+									"type": "text"
+								},
+								{
+									"key": "size",
+									"value": "5x5 meter",
+									"type": "text"
+								},
+								{
+									"key": "price_semi_annual",
+									"value": "7000000",
+									"type": "text"
+								},
+								{
+									"key": "room_facilities",
+									"value": "[\"67829f0ace229812a4bade28\", \"6782a0455e49e3a9bdd023a0\", \"6782a05a5e49e3a9bdd023a1\"]",
+									"type": "text"
+								},
+								{
+									"key": "custom_facilities",
+									"value": "[\"679fc2938ce2a6af5720b149\", \"679fc7038784cd291588d882\"]",
+									"type": "text"
+								},
+								{
+									"key": "number_available",
+									"value": "5",
+									"type": "text"
+								},
+								{
+									"key": "images",
+									"type": "file",
+									"src": [
+										"/E:/Tugas Fathya/Proyek 3/gambar kos/kkos4.jpg",
+										"/E:/Tugas Fathya/Proyek 3/gambar kos/cara+menata+kamar+kos+yang+sempit+dan+banyak+barang+dengan+lantai+bersih-640w.webp"
+									]
+								},
+								{
+									"key": "price_yearly",
+									"value": "13000000",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://kosconnect-server.vercel.app/api/rooms/679fc9e68784cd291588d883",
+							"protocol": "https",
+							"host": [
+								"kosconnect-server",
+								"vercel",
+								"app"
+							],
+							"path": [
+								"api",
+								"rooms",
+								"679fc9e68784cd291588d883"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/rooms/:id",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3Mzg2MjM1OTksImlhdCI6MTczODUzNzE5OSwicm9sZSI6Im93bmVyIiwidXNlcl9pZCI6IjY3NmMxNjE4Nzc5NTFjNGFlMjA1MzRmYSJ9.IEkrSIiQEsA6nVKbuIYgcUq1se11fwbzuIA81p1GKSM",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "room_type",
+									"value": "Studio",
+									"type": "text"
+								},
+								{
+									"key": "size",
+									"value": "5 x 5 meter",
+									"type": "text"
+								},
+								{
+									"key": "price_quarterly",
+									"value": "4000000",
+									"type": "text"
+								},
+								{
+									"key": "room_facilities",
+									"value": "[\"67829f0ace229812a4bade28\", \"6782a0455e49e3a9bdd023a0\", \"6782a05a5e49e3a9bdd023a1\"]",
+									"type": "text"
+								},
+								{
+									"key": "custom_facilities",
+									"value": "[\"679fc2938ce2a6af5720b149\", \"679fc7038784cd291588d882\", \"67827a8de860b172001d60a6\"]",
+									"type": "text"
+								},
+								{
+									"key": "status",
+									"value": "available",
+									"type": "text"
+								},
+								{
+									"key": "number_available",
+									"value": "6",
+									"type": "text"
+								},
+								{
+									"key": "images",
+									"type": "file",
+									"src": [
+										"/C:/Users/Fathya/Downloads/enkripsi asimetrik.png",
+										"/C:/Users/Fathya/Downloads/plastiqu (2).png"
+									]
+								},
+								{
+									"key": "price_yearly",
+									"value": "13000000",
+									"type": "text"
+								},
+								{
+									"key": "price_semi_annual",
+									"value": "7000000",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://kosconnect-server.vercel.app/api/rooms/679ff9a92dd7df11b3a089ad",
+							"protocol": "https",
+							"host": [
+								"kosconnect-server",
+								"vercel",
+								"app"
+							],
+							"path": [
+								"api",
+								"rooms",
+								"679ff9a92dd7df11b3a089ad"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/rooms",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://kosconnect-server.vercel.app/api/rooms/",
+							"protocol": "https",
+							"host": [
+								"kosconnect-server",
+								"vercel",
+								"app"
+							],
+							"path": [
+								"api",
+								"rooms",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/rooms/:id",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3Mzg2MjM1OTksImlhdCI6MTczODUzNzE5OSwicm9sZSI6Im93bmVyIiwidXNlcl9pZCI6IjY3NmMxNjE4Nzc5NTFjNGFlMjA1MzRmYSJ9.IEkrSIiQEsA6nVKbuIYgcUq1se11fwbzuIA81p1GKSM",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://kosconnect-server.vercel.app/api/rooms/679f9097ebed047dadcc5833",
+							"protocol": "https",
+							"host": [
+								"kosconnect-server",
+								"vercel",
+								"app"
+							],
+							"path": [
+								"api",
+								"rooms",
+								"679f9097ebed047dadcc5833"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/rooms/boarding-house/:boardingHouseID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3Mzg2MjM1OTksImlhdCI6MTczODUzNzE5OSwicm9sZSI6Im93bmVyIiwidXNlcl9pZCI6IjY3NmMxNjE4Nzc5NTFjNGFlMjA1MzRmYSJ9.IEkrSIiQEsA6nVKbuIYgcUq1se11fwbzuIA81p1GKSM",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://kosconnect-server.vercel.app/api/rooms/boarding-house/679fc9e68784cd291588d883",
+							"protocol": "https",
+							"host": [
+								"kosconnect-server",
+								"vercel",
+								"app"
+							],
+							"path": [
+								"api",
+								"rooms",
+								"boarding-house",
+								"679fc9e68784cd291588d883"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/rooms/home",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://kosconnect-server.vercel.app/api/rooms/home",
+							"protocol": "https",
+							"host": [
+								"kosconnect-server",
+								"vercel",
+								"app"
+							],
+							"path": [
+								"api",
+								"rooms",
+								"home"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/rooms/:id/pages",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://kosconnect-server.vercel.app/api/rooms/678ff019ffdf62c251ac4b2f/pages",
+							"protocol": "https",
+							"host": [
+								"kosconnect-server",
+								"vercel",
+								"app"
+							],
+							"path": [
+								"api",
+								"rooms",
+								"678ff019ffdf62c251ac4b2f",
+								"pages"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/rooms/:id/detail",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3Mzg2MjM1OTksImlhdCI6MTczODUzNzE5OSwicm9sZSI6Im93bmVyIiwidXNlcl9pZCI6IjY3NmMxNjE4Nzc5NTFjNGFlMjA1MzRmYSJ9.IEkrSIiQEsA6nVKbuIYgcUq1se11fwbzuIA81p1GKSM",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://kosconnect-server.vercel.app/api/rooms/678ff019ffdf62c251ac4b2f/detail",
+							"protocol": "https",
+							"host": [
+								"kosconnect-server",
+								"vercel",
+								"app"
+							],
+							"path": [
+								"api",
+								"rooms",
+								"678ff019ffdf62c251ac4b2f",
+								"detail"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/rooms/:id",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3Mzg2MjM1OTksImlhdCI6MTczODUzNzE5OSwicm9sZSI6Im93bmVyIiwidXNlcl9pZCI6IjY3NmMxNjE4Nzc5NTFjNGFlMjA1MzRmYSJ9.IEkrSIiQEsA6nVKbuIYgcUq1se11fwbzuIA81p1GKSM",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://kosconnect-server.vercel.app/api/rooms/679f903555a47b948f9fc56c",
+							"protocol": "http",
+							"host": [
+								"kosconnect-server",
+								"vercel",
+								"app"
+							],
+							"path": [
+								"api",
+								"rooms",
+								"679f903555a47b948f9fc56c"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "transaction",
+			"item": [
+				{
+					"name": "/api/transaction",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3Mzg2MjQ5ODUsImlhdCI6MTczODUzODU4NSwicm9sZSI6InVzZXIiLCJ1c2VyX2lkIjoiNjc4NTRhMjllNGI3YTE5ODg2YmZkYmNkIn0.im1ECSYzT4igkdhFy7PJpdajoiaNnG3HEaKIbaeSkDU",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"personal_info\": {\r\n        \"full_name\": \"Fathya Fathimah Azzahra\",\r\n        \"email\": \"714220012@std.ulbi.ac.id\",\r\n        \"phone_number\": \"+6285759043680\"\r\n    },\r\n    \"custom_facilities\": [\r\n        \"679fc2938ce2a6af5720b149\",\r\n        \"679fc7038784cd291588d882\",\r\n        \"67827a8de860b172001d60a6\"\r\n    ],\r\n    \"payment_term\": \"semi_annual\",\r\n    \"check_in_date\": \"2025-02-05\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://kosconnect-server.vercel.app/api/transaction/?room_id=679ff9a92dd7df11b3a089ad&boarding_house_id=679fc9e68784cd291588d883&owner_id=676c161877951c4ae20534fa&user_id=67854a29e4b7a19886bfdbcd",
+							"protocol": "https",
+							"host": [
+								"kosconnect-server",
+								"vercel",
+								"app"
+							],
+							"path": [
+								"api",
+								"transaction",
+								""
+							],
+							"query": [
+								{
+									"key": "room_id",
+									"value": "679ff9a92dd7df11b3a089ad"
+								},
+								{
+									"key": "boarding_house_id",
+									"value": "679fc9e68784cd291588d883"
+								},
+								{
+									"key": "owner_id",
+									"value": "676c161877951c4ae20534fa"
+								},
+								{
+									"key": "user_id",
+									"value": "67854a29e4b7a19886bfdbcd"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/transaction/user",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3Mzg2MjQ5ODUsImlhdCI6MTczODUzODU4NSwicm9sZSI6InVzZXIiLCJ1c2VyX2lkIjoiNjc4NTRhMjllNGI3YTE5ODg2YmZkYmNkIn0.im1ECSYzT4igkdhFy7PJpdajoiaNnG3HEaKIbaeSkDU",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://kosconnect-server.vercel.app/api/transaction/user",
+							"protocol": "https",
+							"host": [
+								"kosconnect-server",
+								"vercel",
+								"app"
+							],
+							"path": [
+								"api",
+								"transaction",
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/transactions/:id/payment",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3Mzg2MjQ5ODUsImlhdCI6MTczODUzODU4NSwicm9sZSI6InVzZXIiLCJ1c2VyX2lkIjoiNjc4NTRhMjllNGI3YTE5ODg2YmZkYmNkIn0.im1ECSYzT4igkdhFy7PJpdajoiaNnG3HEaKIbaeSkDU",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://kosconnect-server.vercel.app/transactions/679fff6e2dd7df11b3a089b1/payment",
+							"protocol": "https",
+							"host": [
+								"kosconnect-server",
+								"vercel",
+								"app"
+							],
+							"path": [
+								"transactions",
+								"679fff6e2dd7df11b3a089b1",
+								"payment"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/transaction/owner",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3Mzg2MjU1NTYsImlhdCI6MTczODUzOTE1Niwicm9sZSI6Im93bmVyIiwidXNlcl9pZCI6IjY3NmMxNjE4Nzc5NTFjNGFlMjA1MzRmYSJ9.JNFHNkIObDtonQoXNTHHDz40lYHiFGFz-oSLajUOSKQ",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://kosconnect-server.vercel.app/api/transaction/owner",
+							"protocol": "https",
+							"host": [
+								"kosconnect-server",
+								"vercel",
+								"app"
+							],
+							"path": [
+								"api",
+								"transaction",
+								"owner"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/transaction",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3Mzg2MjU2NTcsImlhdCI6MTczODUzOTI1Nywicm9sZSI6ImFkbWluIiwidXNlcl9pZCI6IjY3ODM1MTgyZTUxYWU2MmM1ZTA1MzBjOCJ9.zlKEmNFhTmItmLxFExq-IhLWVJjyF_pPovOHpOSF9Rc",
+								"type": "text"
+							},
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "https://kosconnect-server.vercel.app/api/transaction",
+							"protocol": "https",
+							"host": [
+								"kosconnect-server",
+								"vercel",
+								"app"
+							],
+							"path": [
+								"api",
+								"transaction"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/transaction/:id",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3Mzg2MjQ5ODUsImlhdCI6MTczODUzODU4NSwicm9sZSI6InVzZXIiLCJ1c2VyX2lkIjoiNjc4NTRhMjllNGI3YTE5ODg2YmZkYmNkIn0.im1ECSYzT4igkdhFy7PJpdajoiaNnG3HEaKIbaeSkDU",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://kosconnect-server.vercel.app/api/transaction/679fff6e2dd7df11b3a089b1",
+							"protocol": "https",
+							"host": [
+								"kosconnect-server",
+								"vercel",
+								"app"
+							],
+							"path": [
+								"api",
+								"transaction",
+								"679fff6e2dd7df11b3a089b1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/transaction/admin/user/:userId",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3Mzg2MjU2NTcsImlhdCI6MTczODUzOTI1Nywicm9sZSI6ImFkbWluIiwidXNlcl9pZCI6IjY3ODM1MTgyZTUxYWU2MmM1ZTA1MzBjOCJ9.zlKEmNFhTmItmLxFExq-IhLWVJjyF_pPovOHpOSF9Rc",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://kosconnect-server.vercel.app/api/transaction/admin/user/67854a29e4b7a19886bfdbcd",
+							"protocol": "https",
+							"host": [
+								"kosconnect-server",
+								"vercel",
+								"app"
+							],
+							"path": [
+								"api",
+								"transaction",
+								"admin",
+								"user",
+								"67854a29e4b7a19886bfdbcd"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/transaction/admin/owner/:ownerId",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3Mzg2MjU2NTcsImlhdCI6MTczODUzOTI1Nywicm9sZSI6ImFkbWluIiwidXNlcl9pZCI6IjY3ODM1MTgyZTUxYWU2MmM1ZTA1MzBjOCJ9.zlKEmNFhTmItmLxFExq-IhLWVJjyF_pPovOHpOSF9Rc",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://kosconnect-server.vercel.app/api/transaction/admin/owner/676c161877951c4ae20534fa",
+							"protocol": "https",
+							"host": [
+								"kosconnect-server",
+								"vercel",
+								"app"
+							],
+							"path": [
+								"api",
+								"transaction",
+								"admin",
+								"owner",
+								"676c161877951c4ae20534fa"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/transaction/:id",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3Mzg2MjU2NTcsImlhdCI6MTczODUzOTI1Nywicm9sZSI6ImFkbWluIiwidXNlcl9pZCI6IjY3ODM1MTgyZTUxYWU2MmM1ZTA1MzBjOCJ9.zlKEmNFhTmItmLxFExq-IhLWVJjyF_pPovOHpOSF9Rc",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://kosconnect-server.vercel.app/api/transaction/678e7c7da5daee71bdf879e4",
+							"protocol": "https",
+							"host": [
+								"kosconnect-server",
+								"vercel",
+								"app"
+							],
+							"path": [
+								"api",
+								"transaction",
+								"678e7c7da5daee71bdf879e4"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "id",
+			"value": "1"
+		},
+		{
+			"key": "base_url",
+			"value": "https://postman-rest-api-learner.glitch.me/"
+		}
+	]
+}
