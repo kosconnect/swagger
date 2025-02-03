@@ -1,26 +1,121 @@
 openapi: 3.0.0
 info:
   title: kosconnect
+  description: >-
+    # 🚀 Get started here
+
+
+    This template guides you through CRUD operations (GET, POST, PUT, DELETE),
+    variables, and tests.
+
+
+    ## 🔖 **How to use this template**
+
+
+    #### **Step 1: Send requests**
+
+
+    RESTful APIs allow you to perform CRUD operations using the POST, GET, PUT,
+    and DELETE HTTP methods.
+
+
+    This collection contains each of these
+    [request](https://learning.postman.com/docs/sending-requests/requests/)
+    types. Open each request and click "Send" to see what happens.
+
+
+    #### **Step 2: View responses**
+
+
+    Observe the response tab for status code (200 OK), response time, and size.
+
+
+    #### **Step 3: Send new Body data**
+
+
+    Update or add new data in "Body" in the POST request. Typically, Body data
+    is also used in PUT request.
+
+
+    ```
+
+    {
+        "name": "Add your name in the body"
+    }
+
+     ```
+
+    #### **Step 4: Update the variable**
+
+
+    Variables enable you to store and reuse values in Postman. We have created a
+    [variable](https://learning.postman.com/docs/sending-requests/variables/)
+    called `base_url` with the sample request
+    [https://postman-api-learner.glitch.me](https://postman-api-learner.glitch.me).
+    Replace it with your API endpoint to customize this collection.
+
+
+    #### **Step 5: Add tests in the "Scripts" tab**
+
+
+    Adding tests to your requests can help you confirm that your API is working
+    as expected. You can write test scripts in JavaScript and view the output in
+    the "Test Results" tab.
+
+
+    <img
+    src="https://content.pstmn.io/fa30ea0a-373d-4545-a668-e7b283cca343/aW1hZ2UucG5n"
+    alt="" height="1530" width="2162">
+
+
+    ## 💪 Pro tips
+
+
+    - Use folders to group related requests and organize the collection.
+        
+    - Add more
+    [scripts](https://learning.postman.com/docs/writing-scripts/intro-to-scripts/)
+    to verify if the API works as expected and execute workflows.
+        
+
+    ## 💡Related templates
+
+
+    [API testing
+    basics](https://go.postman.co/redirect/workspace?type=personal&collectionTemplateId=e9a37a28-055b-49cd-8c7e-97494a21eb54&sourceTemplateId=ddb19591-3097-41cf-82af-c84273e56719)  
+
+    [API
+    documentation](https://go.postman.co/redirect/workspace?type=personal&collectionTemplateId=e9c28f47-1253-44af-a2f3-20dce4da1f18&sourceTemplateId=ddb19591-3097-41cf-82af-c84273e56719)  
+
+    [Authorization
+    methods](https://go.postman.co/redirect/workspace?type=personal&collectionTemplateId=31a9a6ed-4cdf-4ced-984c-d12c9aec1c27&sourceTemplateId=ddb19591-3097-41cf-82af-c84273e56719)
   version: 1.0.0
 servers:
   - url: https://kosconnect-server.vercel.app
-
-components:
-  securitySchemes:
-    BearerAuth:
-      type: http
-      scheme: bearer
-      bearerFormat: JWT
-
-security:
-  - BearerAuth: []
-
+  - url: http://kosconnect-server.vercel.app
+tags:
+  - name: auth
+  - name: users
+  - name: category
+  - name: facility
+  - name: customFacility
+  - name: boardingHouse
+  - name: room
+  - name: transaction
 paths:
   /auth/register:
     post:
       tags:
         - auth
-      summary: Register
+      summary: /auth/register
+      description: >-
+        This is a POST request, submitting data to an API via the request body.
+        This request submits JSON data, and the data is reflected in the
+        response.
+
+
+        A successful POST request typically returns a `200 OK` or `201 Created`
+        response code.
       requestBody:
         content:
           application/json:
@@ -31,17 +126,22 @@ paths:
                 email: skresmiamenun@gmail.com
                 role: user
                 password: bundania123
+      parameters:
+        - name: Content-Type
+          in: header
+          schema:
+            type: string
+          example: application/json
       responses:
-        '200':
+        "200":
           description: Successful response
           content:
             application/json: {}
-  
   /auth/login:
     post:
       tags:
         - auth
-      summary: Login
+      summary: /auth/login
       requestBody:
         content:
           application/json:
@@ -51,18 +151,25 @@ paths:
                 email: fathyapremium@gmail.com
                 password: fathya123
       responses:
-        '200':
+        "200":
           description: Successful response
           content:
             application/json: {}
-  /api/users/{id}:
+  /api/users/67854a29e4b7a19886bfdbcd:
     put:
-      security:
-        - BearerAuth: []
       tags:
         - users
-      summary: Update user by ID
-      description: Update user data using PUT request.
+      summary: /api/users:id
+      description: >-
+        This is a PUT request and it is used to overwrite an existing piece of
+        data. For instance, after you create an entity with a POST request, you
+        may want to modify that later. You can do that using a PUT request. You
+        typically identify the entity being updated by including an identifier
+        in the URL (eg. `id=1`).
+
+
+        A successful PUT request typically returns a `200 OK`, `201 Created`, or
+        `204 No Content` response code.
       requestBody:
         content:
           application/json:
@@ -71,58 +178,104 @@ paths:
               example:
                 fullname: Fathya Fathimah
                 email: 714220012@std.ulbi.ac.id
+      parameters:
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: >-
+            Bearer
+            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3Mzg2MjU2NTcsImlhdCI6MTczODUzOTI1Nywicm9sZSI6ImFkbWluIiwidXNlcl9pZCI6IjY3ODM1MTgyZTUxYWU2MmM1ZTA1MzBjOCJ9.zlKEmNFhTmItmLxFExq-IhLWVJjyF_pPovOHpOSF9Rc
       responses:
-        '200':
+        "200":
           description: Successful response
           content:
             application/json: {}
-
+  /api/users/678216730bf7bd2671c3e154:
     delete:
-      security:
-        - BearerAuth: []
       tags:
         - users
-      summary: Delete user by ID
-      description: Delete a user.
+      summary: /api/users/:id
+      description: >-
+        This is a DELETE request, and it is used to delete data that was
+        previously created via a POST request. You typically identify the entity
+        being updated by including an identifier in the URL (eg. `id=1`).
+
+
+        A successful DELETE request typically returns a `200 OK`, `202
+        Accepted`, or `204 No Content` response code.
+      parameters:
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: >-
+            Bearer
+            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3Mzg2MjU2NTcsImlhdCI6MTczODUzOTI1Nywicm9sZSI6ImFkbWluIiwidXNlcl9pZCI6IjY3ODM1MTgyZTUxYWU2MmM1ZTA1MzBjOCJ9.zlKEmNFhTmItmLxFExq-IhLWVJjyF_pPovOHpOSF9Rc
       responses:
-        '200':
+        "200":
           description: Successful response
           content:
             application/json: {}
-
   /api/users/me:
     get:
-      security:
-        - BearerAuth: []
       tags:
         - users
-      summary: Get current user
+      summary: /api/users/me
+      parameters:
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: >-
+            Bearer
+            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3Mzg2MjU2NTcsImlhdCI6MTczODUzOTI1Nywicm9sZSI6ImFkbWluIiwidXNlcl9pZCI6IjY3ODM1MTgyZTUxYWU2MmM1ZTA1MzBjOCJ9.zlKEmNFhTmItmLxFExq-IhLWVJjyF_pPovOHpOSF9Rc
       responses:
-        '200':
+        "200":
           description: Successful response
           content:
             application/json: {}
-
-  /api/users:
+  /api/users/:
     get:
-      security:
-        - BearerAuth: []
       tags:
         - users
-      summary: Get all users
+      summary: /api/users
+      parameters:
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: >-
+            Bearer
+            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3Mzg2MjU2NTcsImlhdCI6MTczODUzOTI1Nywicm9sZSI6ImFkbWluIiwidXNlcl9pZCI6IjY3ODM1MTgyZTUxYWU2MmM1ZTA1MzBjOCJ9.zlKEmNFhTmItmLxFExq-IhLWVJjyF_pPovOHpOSF9Rc
       responses:
-        '200':
+        "200":
           description: Successful response
           content:
             application/json: {}
-
-  /api/users/{id}/role:
-    put:
-      security:
-        - BearerAuth: []
+  /api/users/67821a8159a5f0be2be1a561:
+    get:
       tags:
         - users
-      summary: Update user role
+      summary: /api/users/:id
+      parameters:
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: >-
+            Bearer
+            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3Mzg2MjU2NTcsImlhdCI6MTczODUzOTI1Nywicm9sZSI6ImFkbWluIiwidXNlcl9pZCI6IjY3ODM1MTgyZTUxYWU2MmM1ZTA1MzBjOCJ9.zlKEmNFhTmItmLxFExq-IhLWVJjyF_pPovOHpOSF9Rc
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json: {}
+  /api/users/678216730bf7bd2671c3e154/role:
+    put:
+      tags:
+        - users
+      summary: /api/users/:id/role
       requestBody:
         content:
           application/json:
@@ -130,87 +283,85 @@ paths:
               type: object
               example:
                 role: user
+      parameters:
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: >-
+            Bearer
+            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3Mzg2MjU2NTcsImlhdCI6MTczODUzOTI1Nywicm9sZSI6ImFkbWluIiwidXNlcl9pZCI6IjY3ODM1MTgyZTUxYWU2MmM1ZTA1MzBjOCJ9.zlKEmNFhTmItmLxFExq-IhLWVJjyF_pPovOHpOSF9Rc
       responses:
-        '200':
+        "200":
+          description: Successful response
+          content:
+            application/json: {}
+  /api/users/owner:
+    get:
+      tags:
+        - users
+      summary: /api/users/owner
+      parameters:
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: >-
+            Bearer
+            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3Mzg2MjU2NTcsImlhdCI6MTczODUzOTI1Nywicm9sZSI6ImFkbWluIiwidXNlcl9pZCI6IjY3ODM1MTgyZTUxYWU2MmM1ZTA1MzBjOCJ9.zlKEmNFhTmItmLxFExq-IhLWVJjyF_pPovOHpOSF9Rc
+      responses:
+        "200":
           description: Successful response
           content:
             application/json: {}
   /api/categories:
-  post:
-    tags:
-      - category
-    summary: Create a new category
-    requestBody:
-      content:
-        application/json:
-          schema:
-            type: object
-            example:
-              name: Kos Keluarga
-    responses:
-      '200':
-        description: Successful response
-        content:
-          application/json: {}
-
-  get:
-    tags:
-      - category
-    summary: Get all categories
-    responses:
-      '200':
-        description: Successful response
-        content:
-          application/json: {}
-
-  put:
-    security:
-      - BearerAuth: []
-    tags:
-      - category
-    summary: Update an existing category
-    requestBody:
-      content:
-        application/json:
-          schema:
-            type: object
-            example:
-              name: Kos Pria
-    responses:
-      '200':
-        description: Successful response
-        content:
-          application/json: {}
-
-  delete:
-    security:
-      - BearerAuth: []
-    tags:
-      - category
-    summary: Delete a category
-    responses:
-      '200':
-        description: Successful response
-        content:
-          application/json: {}
-
-  /api/categories/{id}:
-    get:
+    post:
       tags:
         - category
-      summary: Get category by ID
+      summary: /api/categories
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                name: Kos Keluarga
+      parameters:
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: >-
+            Bearer
+            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3Mzg2MDYyOTQsImlhdCI6MTczODUxOTg5NCwicm9sZSI6ImFkbWluIiwidXNlcl9pZCI6IjY3ODM1MTgyZTUxYWU2MmM1ZTA1MzBjOCJ9.O8ejYjg6oGqtnEF0t9zUhYjpNBnk46rBo4KsD-dlGuc
       responses:
-        '200':
+        "200":
           description: Successful response
           content:
             application/json: {}
-
-    put:
-      security:
-        - BearerAuth: []
+    get:
       tags:
         - category
-      summary: Update category by ID
+      summary: /api/categories
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json: {}
+  /api/categories/67a007206f265d5bbcdd78cd:
+    get:
+      tags:
+        - category
+      summary: /api/categories/:id
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json: {}
+    put:
+      tags:
+        - category
+      summary: /api/categories/:id
       requestBody:
         content:
           application/json:
@@ -218,75 +369,101 @@ paths:
               type: object
               example:
                 name: Kos Pria
+      parameters:
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: >-
+            Bearer
+            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3Mzg2MjU2NTcsImlhdCI6MTczODUzOTI1Nywicm9sZSI6ImFkbWluIiwidXNlcl9pZCI6IjY3ODM1MTgyZTUxYWU2MmM1ZTA1MzBjOCJ9.zlKEmNFhTmItmLxFExq-IhLWVJjyF_pPovOHpOSF9Rc
       responses:
-        '200':
+        "200":
           description: Successful response
           content:
             application/json: {}
-
     delete:
-      security:
-        - BearerAuth: []
       tags:
         - category
-      summary: Delete category by ID
-      responses:
-        '200':
-          description: Successful response
-          content:
-            application/json: {}
- /api/facility:
-  post:
-    security:
-      - BearerAuth: []
-    tags:
-      - facility
-    summary: Create a new facility
-    requestBody:
-      content:
-        application/json:
+      summary: /api/categories/:id
+      parameters:
+        - name: Authorization
+          in: header
           schema:
-            type: object
-            example:
-              name: Rooftop
-              type: boarding_house
-    responses:
-      '200':
-        description: Successful response
-        content:
-          application/json: {}
-
-  get:
-    security:
-      - BearerAuth: []
-    tags:
-      - facility
-    summary: Get all facilities
-    responses:
-      '200':
-        description: Successful response
-        content:
-          application/json: {}
-
-  /api/facility/{id}:
-    get:
-      security:
-        - BearerAuth: []
-      tags:
-        - facility
-      summary: Get facility by ID
+            type: string
+          example: >-
+            Bearer
+            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3Mzg2MDYyOTQsImlhdCI6MTczODUxOTg5NCwicm9sZSI6ImFkbWluIiwidXNlcl9pZCI6IjY3ODM1MTgyZTUxYWU2MmM1ZTA1MzBjOCJ9.O8ejYjg6oGqtnEF0t9zUhYjpNBnk46rBo4KsD-dlGuc
       responses:
-        '200':
+        "200":
           description: Successful response
           content:
             application/json: {}
-
-    put:
-      security:
-        - BearerAuth: []
+  /api/facility:
+    post:
       tags:
         - facility
-      summary: Update facility by ID
+      summary: /api/facility
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                name: Rooftop
+                type: boarding_house
+      parameters:
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: >-
+            Bearer
+            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3Mzg2MDYyOTQsImlhdCI6MTczODUxOTg5NCwicm9sZSI6ImFkbWluIiwidXNlcl9pZCI6IjY3ODM1MTgyZTUxYWU2MmM1ZTA1MzBjOCJ9.O8ejYjg6oGqtnEF0t9zUhYjpNBnk46rBo4KsD-dlGuc
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json: {}
+    get:
+      tags:
+        - facility
+      summary: /api/facility
+      parameters:
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: >-
+            Bearer
+            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3Mzg2MjU2NTcsImlhdCI6MTczODUzOTI1Nywicm9sZSI6ImFkbWluIiwidXNlcl9pZCI6IjY3ODM1MTgyZTUxYWU2MmM1ZTA1MzBjOCJ9.zlKEmNFhTmItmLxFExq-IhLWVJjyF_pPovOHpOSF9Rc
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json: {}
+  /api/facility/67a007cf98dab4a75173c6b5:
+    get:
+      tags:
+        - facility
+      summary: /api/facility/:id
+      parameters:
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: >-
+            Bearer
+            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3Mzg2MjU2NTcsImlhdCI6MTczODUzOTI1Nywicm9sZSI6ImFkbWluIiwidXNlcl9pZCI6IjY3ODM1MTgyZTUxYWU2MmM1ZTA1MzBjOCJ9.zlKEmNFhTmItmLxFExq-IhLWVJjyF_pPovOHpOSF9Rc
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json: {}
+    put:
+      tags:
+        - facility
+      summary: /api/facility/:id
       requestBody:
         content:
           application/json:
@@ -295,103 +472,125 @@ paths:
               example:
                 name: Rooftop di Lantai 4
                 type: boarding_house
+      parameters:
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: >-
+            Bearer
+            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3Mzg2MjU2NTcsImlhdCI6MTczODUzOTI1Nywicm9sZSI6ImFkbWluIiwidXNlcl9pZCI6IjY3ODM1MTgyZTUxYWU2MmM1ZTA1MzBjOCJ9.zlKEmNFhTmItmLxFExq-IhLWVJjyF_pPovOHpOSF9Rc
       responses:
-        '200':
+        "200":
           description: Successful response
           content:
             application/json: {}
-
     delete:
-      security:
-        - BearerAuth: []
       tags:
         - facility
-      summary: Delete facility by ID
+      summary: /api/facility/:id
+      parameters:
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: >-
+            Bearer
+            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3Mzg2MjU2NTcsImlhdCI6MTczODUzOTI1Nywicm9sZSI6ImFkbWluIiwidXNlcl9pZCI6IjY3ODM1MTgyZTUxYWU2MmM1ZTA1MzBjOCJ9.zlKEmNFhTmItmLxFExq-IhLWVJjyF_pPovOHpOSF9Rc
       responses:
-        '200':
+        "200":
           description: Successful response
           content:
             application/json: {}
-
   /api/facility/type:
     get:
-      security:
-        - BearerAuth: []
       tags:
         - facility
-      summary: Get facilities by type (e.g., boarding_house)
+      summary: /api/facility/type?type=boarding_house
       parameters:
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: >-
+            Bearer
+            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3Mzg2MjU2NTcsImlhdCI6MTczODUzOTI1Nywicm9sZSI6ImFkbWluIiwidXNlcl9pZCI6IjY3ODM1MTgyZTUxYWU2MmM1ZTA1MzBjOCJ9.zlKEmNFhTmItmLxFExq-IhLWVJjyF_pPovOHpOSF9Rc
         - name: type
           in: query
           schema:
             type: string
           example: boarding_house
       responses:
-        '200':
+        "200":
           description: Successful response
           content:
             application/json: {}
   /api/customFacilities:
-  post:
-    security:
-      - BearerAuth: []
-    tags:
-      - customFacility
-    summary: Create a new custom facility by admin
-    requestBody:
-      content:
-        application/json:
-          schema:
-            type: object
-            example:
-              name: Makan Siang dari Warteg Bahari
-              price: 300000
-              owner_id: 676c161877951c4ae20534fa
-    responses:
-      '200':
-        description: Successful response
-        content:
-          application/json: {}
-
-  get:
-    security:
-      - BearerAuth: []
-    tags:
-      - customFacility
-    summary: Get custom facilities by owner
-    parameters:
-      - name: Authorization
-        in: header
-        schema:
-          type: string
-        example: >-
-          Bearer
-          eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3Mzg2MDk2MDQsImlhdCI6MTczODUyMzIwNCwicm9sZSI6Im93bmVyIiwidXNlcl9pZCI6IjY3NmMxNjE4Nzc5NTFjNGFlMjA1MzRmYSJ9.hKd7QcO-haqWRuuu1_gVdfteBdnbirmBttwCXx-EC9k
-    responses:
-      '200':
-        description: Successful response
-        content:
-          application/json: {}
-
-  /api/customFacilities/{id}:
-    get:
-      security:
-        - BearerAuth: []
+    post:
       tags:
         - customFacility
-      summary: Get custom facility by ID
+      summary: /api/customFacilities by admin
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                name: Makan Siang dari Warteg Bahari
+                price: 300000
+                owner_id: 676c161877951c4ae20534fa
+      parameters:
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: >-
+            Bearer
+            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3Mzg2MDYyOTQsImlhdCI6MTczODUxOTg5NCwicm9sZSI6ImFkbWluIiwidXNlcl9pZCI6IjY3ODM1MTgyZTUxYWU2MmM1ZTA1MzBjOCJ9.O8ejYjg6oGqtnEF0t9zUhYjpNBnk46rBo4KsD-dlGuc
       responses:
-        '200':
+        "200":
           description: Successful response
           content:
             application/json: {}
-
-    put:
-      security:
-        - BearerAuth: []
+    get:
       tags:
         - customFacility
-      summary: Update custom facility by ID
+      summary: /api/customFacilities/owner
+      parameters:
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: >-
+            Bearer
+            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3Mzg2MDk2MDQsImlhdCI6MTczODUyMzIwNCwicm9sZSI6Im93bmVyIiwidXNlcl9pZCI6IjY3NmMxNjE4Nzc5NTFjNGFlMjA1MzRmYSJ9.hKd7QcO-haqWRuuu1_gVdfteBdnbirmBttwCXx-EC9k
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json: {}
+  /api/customFacilities/67a00999a41785543e617b91:
+    get:
+      tags:
+        - customFacility
+      summary: /api/customFacilities/:id
+      parameters:
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: >-
+            Bearer
+            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3Mzg2MDk2MDQsImlhdCI6MTczODUyMzIwNCwicm9sZSI6Im93bmVyIiwidXNlcl9pZCI6IjY3NmMxNjE4Nzc5NTFjNGFlMjA1MzRmYSJ9.hKd7QcO-haqWRuuu1_gVdfteBdnbirmBttwCXx-EC9k
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json: {}
+    put:
+      tags:
+        - customFacility
+      summary: /api/customFacilities/:id
       requestBody:
         content:
           application/json:
@@ -400,19 +599,24 @@ paths:
               example:
                 name: Listrik Rice Cooker
                 price: 30000
+      parameters:
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: >-
+            Bearer
+            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3Mzg2MDk2MDQsImlhdCI6MTczODUyMzIwNCwicm9sZSI6Im93bmVyIiwidXNlcl9pZCI6IjY3NmMxNjE4Nzc5NTFjNGFlMjA1MzRmYSJ9.hKd7QcO-haqWRuuu1_gVdfteBdnbirmBttwCXx-EC9k
       responses:
-        '200':
+        "200":
           description: Successful response
           content:
             application/json: {}
-
   /api/customFacilities/admin/:
     get:
-      security:
-        - BearerAuth: []
       tags:
         - customFacility
-      summary: Get custom facilities by admin based on owner_id
+      summary: /api/customFacilities/admin/?owner_id
       parameters:
         - name: Authorization
           in: header
@@ -427,71 +631,80 @@ paths:
             type: string
           example: 676c161877951c4ae20534fa
       responses:
-        '200':
+        "200":
           description: Successful response
           content:
             application/json: {}
-
-  /api/customFacilities/{id}:
+  /api/customFacilities/679fc7038784cd291588d882:
     delete:
-      security:
-        - BearerAuth: []
       tags:
         - customFacility
-      summary: Delete custom facility by ID
+      summary: /api/customFacilities:id
+      parameters:
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: >-
+            Bearer
+            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3Mzg2MDk2MDQsImlhdCI6MTczODUyMzIwNCwicm9sZSI6Im93bmVyIiwidXNlcl9pZCI6IjY3NmMxNjE4Nzc5NTFjNGFlMjA1MzRmYSJ9.hKd7QcO-haqWRuuu1_gVdfteBdnbirmBttwCXx-EC9k
       responses:
-        '200':
+        "200":
           description: Successful response
           content:
             application/json: {}
   /api/boardingHouses:
-  post:
-    security:
-      - BearerAuth: []
-    tags:
-      - boardingHouse
-    summary: Create a new boarding house by Owner
-    requestBody:
-      content:
-        multipart/form-data:
-          schema:
-            type: object
-            properties:
-              name:
-                type: string
-                example: Kos Karina
-              address:
-                type: string
-                example: Jl. Kwangya
-              category_id:
-                type: string
-                example: 6782a4a3ce3fab5e128cf500
-              description:
-                type: string
-                example: Lokasi Strategis, Dekat dengan kampus
-              rules:
-                type: string
-                example: Piket seminggu sekali
-              facilities:
-                type: string
-                example: >-
-                  ["679d31601c7dbc4fe53fd90f", "679fbd39710193d32f39c4c9", "67829f775e49e3a9bdd02399"]
-              images:
-                type: string
-                format: binary
-    responses:
-      '200':
-        description: Successful response
-        content:
-          application/json: {}
-
-  /api/boardingHouses/{id}:
-    put:
-      security:
-        - BearerAuth: []
+    post:
       tags:
         - boardingHouse
-      summary: Update a boarding house by ID
+      summary: /api/boardingHouses by Owner
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: Kos Karina
+                address:
+                  type: string
+                  example: Jl. Kwangya
+                category_id:
+                  type: string
+                  example: 6782a4a3ce3fab5e128cf500
+                description:
+                  type: string
+                  example: Lokasi Strategis, Dekat dengan kampus
+                rules:
+                  type: string
+                  example: Piket seminggu sekali
+                facilities:
+                  type: string
+                  example: >-
+                    ["679d31601c7dbc4fe53fd90f", "679fbd39710193d32f39c4c9",
+                    "67829f775e49e3a9bdd02399"]
+                images:
+                  type: string
+                  format: binary
+      parameters:
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: >-
+            Bearer
+            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3Mzg2MjQzNzUsImlhdCI6MTczODUzNzk3NSwicm9sZSI6Im93bmVyIiwidXNlcl9pZCI6IjY3NmMxNjE4Nzc5NTFjNGFlMjA1MzRmYSJ9.t86VBuYS-QOohJawh5nVnOQAf3sBkMul7xfJdOXU0xQ
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json: {}
+  /api/boardingHouses/679fc9e68784cd291588d883:
+    put:
+      tags:
+        - boardingHouse
+      summary: /api/boardingHouses/:id
       requestBody:
         content:
           multipart/form-data:
@@ -518,51 +731,56 @@ paths:
                 facilities:
                   type: string
                   example: >-
-                    ["67829f2f5e49e3a9bdd02394", "67829f375e49e3a9bdd02395", "67829f475e49e3a9bdd02396"]
+                    ["67829f2f5e49e3a9bdd02394", "67829f375e49e3a9bdd02395",
+                    "67829f475e49e3a9bdd02396"]
                 images:
                   type: string
                   format: binary
                 owner_id:
                   type: string
                   example: 676c161877951c4ae20534fa
-    responses:
-      '200':
-        description: Successful response
-        content:
-          application/json: {}
-
-    get:
-      security:
-        - BearerAuth: []
-      tags:
-        - boardingHouse
-      summary: Get details of a boarding house by ID
+      parameters:
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: >-
+            Bearer
+            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3Mzg2MDk2MDQsImlhdCI6MTczODUyMzIwNCwicm9sZSI6Im93bmVyIiwidXNlcl9pZCI6IjY3NmMxNjE4Nzc5NTFjNGFlMjA1MzRmYSJ9.hKd7QcO-haqWRuuu1_gVdfteBdnbirmBttwCXx-EC9k
+        - name: Content-Type
+          in: header
+          schema:
+            type: string
+          example: multipart/form-data
       responses:
-        '200':
+        "200":
           description: Successful response
           content:
             application/json: {}
-
-  /api/boardingHouses:
     get:
-      security:
-        - BearerAuth: []
       tags:
         - boardingHouse
-      summary: Get all boarding houses
+      summary: /api/boardingHouses/:id
       responses:
-        '200':
+        "200":
           description: Successful response
           content:
             application/json: {}
-
-  /api/boardingHouses/{id}/detail:
+  /api/boardingHouses/:
     get:
-      security:
-        - BearerAuth: []
       tags:
         - boardingHouse
-      summary: Get detailed information about a boarding house by ID
+      summary: /api/boardingHouses/
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json: {}
+  /api/boardingHouses/679fc9e68784cd291588d883/detail:
+    get:
+      tags:
+        - boardingHouse
+      summary: /api/hoardingHouses/:id/detail
       parameters:
         - name: Authorization
           in: header
@@ -572,18 +790,15 @@ paths:
             Bearer
             eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MzQ5MzY1NDQsInJvbGUiOiJ1c2VyIiwidXNlcl9pZCI6IjY3NjdiNDg5MWMwY2YyOTgwYzlkOGI4NCJ9.ymwmpFSUx2H80dgzYMYPsOZ2CrIlUhHfY0DNeWF0Uag
       responses:
-        '200':
+        "200":
           description: Successful response
           content:
             application/json: {}
-
   /api/boardingHouses/owner:
     get:
-      security:
-        - BearerAuth: []
       tags:
         - boardingHouse
-      summary: Get all boarding houses of an owner
+      summary: /api/boardingHouses/owner
       parameters:
         - name: Authorization
           in: header
@@ -593,18 +808,15 @@ paths:
             Bearer
             eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3Mzg2MjQzNzUsImlhdCI6MTczODUzNzk3NSwicm9sZSI6Im93bmVyIiwidXNlcl9pZCI6IjY3NmMxNjE4Nzc5NTFjNGFlMjA1MzRmYSJ9.t86VBuYS-QOohJawh5nVnOQAf3sBkMul7xfJdOXU0xQ
       responses:
-        '200':
+        "200":
           description: Successful response
           content:
             application/json: {}
-
-  /api/boardingHouses/{id}:
+  /api/boardingHouses/6782bfa2408e18739080835a:
     delete:
-      security:
-        - BearerAuth: []
       tags:
         - boardingHouse
-      summary: Delete a boarding house by ID
+      summary: /api/boardingHouses/:id
       parameters:
         - name: Authorization
           in: header
@@ -614,23 +826,15 @@ paths:
             Bearer
             eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3Mzg2MDk2MDQsImlhdCI6MTczODUyMzIwNCwicm9sZSI6Im93bmVyIiwidXNlcl9pZCI6IjY3NmMxNjE4Nzc5NTFjNGFlMjA1MzRmYSJ9.hKd7QcO-haqWRuuu1_gVdfteBdnbirmBttwCXx-EC9k
       responses:
-        '200':
+        "200":
           description: Successful response
           content:
             application/json: {}
-/api/rooms/{boardingHouseID}:
+  /api/rooms/679fc9e68784cd291588d883:
     post:
       tags:
         - room
-      summary: Add a room to the boarding house
-      security:
-        - /api/rooms/679fc9e68784cd291588d883:
-    post:
-      tags:
-        - room
-      summary: Add a room to the boarding house
-      security:
-        - BearerAuth: []  # Menjamin bahwa security tetap terpakai pada endpoint ini
+      summary: /api/rooms/:boardingHouseID
       requestBody:
         content:
           multipart/form-data:
@@ -645,36 +849,42 @@ paths:
                   example: 5x5 meter
                 price_semi_annual:
                   type: integer
-                  example: '7000000'
+                  example: "7000000"
                 room_facilities:
                   type: string
                   example: >-
-                    ["67829f0ace229812a4bade28", "6782a0455e49e3a9bdd023a0", "6782a05a5e49e3a9bdd023a1"]
+                    ["67829f0ace229812a4bade28", "6782a0455e49e3a9bdd023a0",
+                    "6782a05a5e49e3a9bdd023a1"]
                 custom_facilities:
                   type: string
                   example: '["679fc2938ce2a6af5720b149", "679fc7038784cd291588d882"]'
                 number_available:
                   type: integer
-                  example: '5'
+                  example: "5"
                 images:
                   type: string
                   format: binary
                 price_yearly:
                   type: integer
-                  example: '13000000'
+                  example: "13000000"
+      parameters:
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: >-
+            Bearer
+            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3Mzg2MjM1OTksImlhdCI6MTczODUzNzE5OSwicm9sZSI6Im93bmVyIiwidXNlcl9pZCI6IjY3NmMxNjE4Nzc5NTFjNGFlMjA1MzRmYSJ9.IEkrSIiQEsA6nVKbuIYgcUq1se11fwbzuIA81p1GKSM
       responses:
-        '200':
+        "200":
           description: Successful response
           content:
             application/json: {}
-
-  /api/rooms/{id}:
+  /api/rooms/679ff9a92dd7df11b3a089ad:
     put:
       tags:
         - room
-      summary: Update a room
-      security:
-        - BearerAuth: []  # Menjamin bahwa security tetap terpakai pada endpoint ini
+      summary: /api/rooms/:id
       requestBody:
         content:
           multipart/form-data:
@@ -689,181 +899,144 @@ paths:
                   example: 5 x 5 meter
                 price_quarterly:
                   type: integer
-                  example: '4000000'
+                  example: "4000000"
                 room_facilities:
                   type: string
                   example: >-
-                    ["67829f0ace229812a4bade28", "6782a0455e49e3a9bdd023a0", "6782a05a5e49e3a9bdd023a1"]
+                    ["67829f0ace229812a4bade28", "6782a0455e49e3a9bdd023a0",
+                    "6782a05a5e49e3a9bdd023a1"]
                 custom_facilities:
                   type: string
                   example: >-
-                    ["679fc2938ce2a6af5720b149", "679fc7038784cd291588d882", "67827a8de860b172001d60a6"]
+                    ["679fc2938ce2a6af5720b149", "679fc7038784cd291588d882",
+                    "67827a8de860b172001d60a6"]
                 status:
                   type: string
                   example: available
                 number_available:
                   type: integer
-                  example: '6'
+                  example: "6"
                 images:
                   type: string
                   format: binary
                 price_yearly:
                   type: integer
-                  example: '13000000'
+                  example: "13000000"
                 price_semi_annual:
                   type: integer
-                  example: '7000000'
+                  example: "7000000"
+      parameters:
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: >-
+            Bearer
+            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3Mzg2MjM1OTksImlhdCI6MTczODUzNzE5OSwicm9sZSI6Im93bmVyIiwidXNlcl9pZCI6IjY3NmMxNjE4Nzc5NTFjNGFlMjA1MzRmYSJ9.IEkrSIiQEsA6nVKbuIYgcUq1se11fwbzuIA81p1GKSM
       responses:
-        '200':
+        "200":
           description: Successful response
           content:
             application/json: {}
-
   /api/rooms/:
     get:
       tags:
         - room
-      summary: Get all rooms
-      security:
-        - BearerAuth: []  # Menjamin bahwa security tetap terpakai pada endpoint ini
+      summary: /api/rooms
       responses:
-        '200':
+        "200":
           description: Successful response
           content:
             application/json: {}
-
-  /api/rooms/{id}:
+  /api/rooms/679f9097ebed047dadcc5833:
     get:
       tags:
         - room
-      summary: Get a room by ID
-      security:
-        - BearerAuth: []  # Menjamin bahwa security tetap terpakai pada endpoint ini
+      summary: /api/rooms/:id
       parameters:
         - name: Authorization
           in: header
           schema:
             type: string
           example: >-
-            Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3Mzg2MjM1OTksImlhdCI6MTczODUzNzE5OSwicm9sZSI6Im93bmVyIiwidXNlcl9pZCI6IjY3NmMxNjE4Nzc5NTFjNGFlMjA1MzRmYSJ9.IEkrSIiQEsA6nVKbuIYgcUq1se11fwbzuIA81p1GKSM
+            Bearer
+            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3Mzg2MjM1OTksImlhdCI6MTczODUzNzE5OSwicm9sZSI6Im93bmVyIiwidXNlcl9pZCI6IjY3NmMxNjE4Nzc5NTFjNGFlMjA1MzRmYSJ9.IEkrSIiQEsA6nVKbuIYgcUq1se11fwbzuIA81p1GKSM
       responses:
-        '200':
+        "200":
           description: Successful response
           content:
             application/json: {}
-
-  /api/rooms/boarding-house/{boardingHouseID}:
+  /api/rooms/boarding-house/679fc9e68784cd291588d883:
     get:
       tags:
         - room
-      summary: Get rooms by boarding house ID
-      security:
-        - BearerAuth: []  # Menjamin bahwa security tetap terpakai pada endpoint ini
+      summary: /api/rooms/boarding-house/:boardingHouseID
       parameters:
         - name: Authorization
           in: header
           schema:
             type: string
           example: >-
-            Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3Mzg2MjM1OTksImlhdCI6MTczODUzNzE5OSwicm9sZSI6Im93bmVyIiwidXNlcl9pZCI6IjY3NmMxNjE4Nzc5NTFjNGFlMjA1MzRmYSJ9.IEkrSIiQEsA6nVKbuIYgcUq1se11fwbzuIA81p1GKSM
+            Bearer
+            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3Mzg2MjM1OTksImlhdCI6MTczODUzNzE5OSwicm9sZSI6Im93bmVyIiwidXNlcl9pZCI6IjY3NmMxNjE4Nzc5NTFjNGFlMjA1MzRmYSJ9.IEkrSIiQEsA6nVKbuIYgcUq1se11fwbzuIA81p1GKSM
       responses:
-        '200':
+        "200":
           description: Successful response
           content:
             application/json: {}
-
   /api/rooms/home:
     get:
       tags:
         - room
-      summary: Get home rooms
+      summary: /api/rooms/home
       responses:
-        '200':
+        "200":
           description: Successful response
           content:
             application/json: {}
-
-  /api/rooms/{id}/pages:
+  /api/rooms/678ff019ffdf62c251ac4b2f/pages:
     get:
       tags:
         - room
-      summary: Get room pages
+      summary: /api/rooms/:id/pages
       responses:
-        '200':
+        "200":
           description: Successful response
           content:
             application/json: {}
-
-  /api/rooms/{id}/detail:
+  /api/rooms/678ff019ffdf62c251ac4b2f/detail:
     get:
       tags:
         - room
-      summary: Get room details
+      summary: /api/rooms/:id/detail
       parameters:
         - name: Authorization
           in: header
           schema:
             type: string
           example: >-
-            Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3Mzg2MjM1OTksImlhdCI6MTczODUzNzE5OSwicm9sZSI6Im93bmVyIiwidXNlcl9pZCI6IjY3NmMxNjE4Nzc5NTFjNGFlMjA1MzRmYSJ9.IEkrSIiQEsA6nVKbuIYgcUq1se11fwbzuIA81p1GKSM
+            Bearer
+            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3Mzg2MjM1OTksImlhdCI6MTczODUzNzE5OSwicm9sZSI6Im93bmVyIiwidXNlcl9pZCI6IjY3NmMxNjE4Nzc5NTFjNGFlMjA1MzRmYSJ9.IEkrSIiQEsA6nVKbuIYgcUq1se11fwbzuIA81p1GKSM
       responses:
-        '200':
+        "200":
           description: Successful response
           content:
             application/json: {}
-
-  /api/rooms/{id}:
+  /api/rooms/679f903555a47b948f9fc56c:
     delete:
       tags:
         - room
-      summary: Delete a room
-      security:
-        - BearerAuth: []  # Menjamin bahwa security tetap terpakai pada endpoint ini
+      summary: /api/rooms/:id
       parameters:
         - name: Authorization
           in: header
           schema:
             type: string
           example: >-
-            Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3Mzg2MjM1OTksImlhdCI6MTczODUzNzE5OSwicm9sZSI6Im93bmVyIiwidXNlcl9pZCI6IjY3NmMxNjE4Nzc5NTFjNGFlMjA1MzRmYSJ9.IEkrSIiQEsA6nVKbuIYgcUq1se11fwbzuIA81p1GKSM
+            Bearer
+            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3Mzg2MjM1OTksImlhdCI6MTczODUzNzE5OSwicm9sZSI6Im93bmVyIiwidXNlcl9pZCI6IjY3NmMxNjE4Nzc5NTFjNGFlMjA1MzRmYSJ9.IEkrSIiQEsA6nVKbuIYgcUq1se11fwbzuIA81p1GKSM
       responses:
-        '200':
-          description: Successful response
-          content:
-            application/json: {}BE: []  # Menjamin bahwa security tetap terpakai pada endpoint ini
-      requestBody:
-        content:
-          multipart/form-data:
-            schema:
-              type: object
-              properties:
-                room_type:
-                  type: string
-                  example: Studio
-                size:
-                  type: string
-                  example: 5x5 meter
-                price_semi_annual:
-                  type: integer
-                  example: '7000000'
-                room_facilities:
-                  type: string
-                  example: >-
-                    ["67829f0ace229812a4bade28", "6782a0455e49e3a9bdd023a0", "6782a05a5e49e3a9bdd023a1"]
-                custom_facilities:
-                  type: string
-                  example: '["679fc2938ce2a6af5720b149", "679fc7038784cd291588d882"]'
-                number_available:
-                  type: integer
-                  example: '5'
-                images:
-                  type: string
-                  format: binary
-                price_yearly:
-                  type: integer
-                  example: '13000000'
-      responses:
-        '200':
+        "200":
           description: Successful response
           content:
             application/json: {}
@@ -871,9 +1044,7 @@ paths:
     post:
       tags:
         - transaction
-      summary: Create a new transaction
-      security:
-        - BearerAuth: []  # Menjamin bahwa security tetap terpakai pada endpoint ini
+      summary: /api/transaction
       requestBody:
         content:
           application/json:
@@ -883,133 +1054,198 @@ paths:
                 personal_info:
                   full_name: Fathya Fathimah Azzahra
                   email: 714220012@std.ulbi.ac.id
-                  phone_number: '+6285759043680'
+                  phone_number: "+6285759043680"
                 custom_facilities:
                   - 679fc2938ce2a6af5720b149
                   - 679fc7038784cd291588d882
+                  - 67827a8de860b172001d60a6
                 payment_term: semi_annual
-                check_in_date: '2025-02-05'
+                check_in_date: "2025-02-05"
       parameters:
         - name: Authorization
           in: header
           schema:
             type: string
-            example: 'Bearer <token>'
-      responses:
-        '200':
-          description: Successful response
-          content:
-            application/json: {}
-
-  /api/transaction/user:
-    get:
-      tags:
-        - transaction
-      summary: Get transactions for a user
-      security:
-        - BearerAuth: []  # Menjamin bahwa security tetap terpakai pada endpoint ini
-      responses:
-        '200':
-          description: Successful response
-          content:
-            application/json: {}
-
-  /api/transaction/admin/user/{userId}:
-    get:
-      tags:
-        - transaction
-      summary: Get transaction details for a specific user (Admin Only)
-      security:
-        - BearerAuth: []  # Menjamin bahwa security tetap terpakai pada endpoint ini
-      parameters:
-        - name: userId
-          in: path
-          required: true
+          example: >-
+            Bearer
+            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3Mzg2MjQ5ODUsImlhdCI6MTczODUzODU4NSwicm9sZSI6InVzZXIiLCJ1c2VyX2lkIjoiNjc4NTRhMjllNGI3YTE5ODg2YmZkYmNkIn0.im1ECSYzT4igkdhFy7PJpdajoiaNnG3HEaKIbaeSkDU
+        - name: Content-Type
+          in: header
+          schema:
+            type: string
+          example: application/json
+        - name: room_id
+          in: query
+          schema:
+            type: string
+          example: 679ff9a92dd7df11b3a089ad
+        - name: boarding_house_id
+          in: query
+          schema:
+            type: string
+          example: 679fc9e68784cd291588d883
+        - name: owner_id
+          in: query
+          schema:
+            type: string
+          example: 676c161877951c4ae20534fa
+        - name: user_id
+          in: query
           schema:
             type: string
           example: 67854a29e4b7a19886bfdbcd
       responses:
-        '200':
+        "200":
           description: Successful response
           content:
             application/json: {}
-
-  /api/transaction/admin/owner/{ownerId}:
+  /api/transaction/user:
     get:
       tags:
         - transaction
-      summary: Get transaction details for a specific owner (Admin Only)
-      security:
-        - BearerAuth: []  # Menjamin bahwa security tetap terpakai pada endpoint ini
+      summary: /api/transaction/user
       parameters:
-        - name: ownerId
-          in: path
-          required: true
+        - name: Authorization
+          in: header
           schema:
             type: string
-          example: 676c161877951c4ae20534fa
+          example: >-
+            Bearer
+            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3Mzg2MjQ5ODUsImlhdCI6MTczODUzODU4NSwicm9sZSI6InVzZXIiLCJ1c2VyX2lkIjoiNjc4NTRhMjllNGI3YTE5ODg2YmZkYmNkIn0.im1ECSYzT4igkdhFy7PJpdajoiaNnG3HEaKIbaeSkDU
       responses:
-        '200':
+        "200":
           description: Successful response
           content:
             application/json: {}
-
-  /api/transaction/{transactionId}:
-    get:
-      tags:
-        - transaction
-      summary: Get a specific transaction by ID
-      security:
-        - BearerAuth: []  # Menjamin bahwa security tetap terpakai pada endpoint ini
-      parameters:
-        - name: transactionId
-          in: path
-          required: true
-          schema:
-            type: string
-          example: 679fff6e2dd7df11b3a089b1
-      responses:
-        '200':
-          description: Successful response
-          content:
-            application/json: {}
-
-  /api/transaction/{transactionId}/payment:
+  /transactions/679fff6e2dd7df11b3a089b1/payment:
     post:
       tags:
         - transaction
-      summary: Make payment for a transaction
-      security:
-        - BearerAuth: []  # Menjamin bahwa security tetap terpakai pada endpoint ini
+      summary: /transactions/:id/payment
+      requestBody:
+        content: {}
       parameters:
-        - name: transactionId
-          in: path
-          required: true
+        - name: Authorization
+          in: header
           schema:
             type: string
-          example: 679fff6e2dd7df11b3a089b1
+          example: >-
+            Bearer
+            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3Mzg2MjQ5ODUsImlhdCI6MTczODUzODU4NSwicm9sZSI6InVzZXIiLCJ1c2VyX2lkIjoiNjc4NTRhMjllNGI3YTE5ODg2YmZkYmNkIn0.im1ECSYzT4igkdhFy7PJpdajoiaNnG3HEaKIbaeSkDU
       responses:
-        '200':
-          description: Payment successful
+        "200":
+          description: Successful response
           content:
             application/json: {}
-
-  /api/transaction/{transactionId}:
+  /api/transaction/owner:
+    get:
+      tags:
+        - transaction
+      summary: /api/transaction/owner
+      parameters:
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: >-
+            Bearer
+            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3Mzg2MjU1NTYsImlhdCI6MTczODUzOTE1Niwicm9sZSI6Im93bmVyIiwidXNlcl9pZCI6IjY3NmMxNjE4Nzc5NTFjNGFlMjA1MzRmYSJ9.JNFHNkIObDtonQoXNTHHDz40lYHiFGFz-oSLajUOSKQ
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json: {}
+  /api/transaction:
+    get:
+      tags:
+        - transaction
+      summary: /api/transaction
+      parameters:
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: >-
+            Bearer
+            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3Mzg2MjU2NTcsImlhdCI6MTczODUzOTI1Nywicm9sZSI6ImFkbWluIiwidXNlcl9pZCI6IjY3ODM1MTgyZTUxYWU2MmM1ZTA1MzBjOCJ9.zlKEmNFhTmItmLxFExq-IhLWVJjyF_pPovOHpOSF9Rc
+        - name: ""
+          in: header
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json: {}
+  /api/transaction/679fff6e2dd7df11b3a089b1:
+    get:
+      tags:
+        - transaction
+      summary: /api/transaction/:id
+      parameters:
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: >-
+            Bearer
+            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3Mzg2MjQ5ODUsImlhdCI6MTczODUzODU4NSwicm9sZSI6InVzZXIiLCJ1c2VyX2lkIjoiNjc4NTRhMjllNGI3YTE5ODg2YmZkYmNkIn0.im1ECSYzT4igkdhFy7PJpdajoiaNnG3HEaKIbaeSkDU
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json: {}
+  /api/transaction/admin/user/67854a29e4b7a19886bfdbcd:
+    get:
+      tags:
+        - transaction
+      summary: /api/transaction/admin/user/:userId
+      parameters:
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: >-
+            Bearer
+            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3Mzg2MjU2NTcsImlhdCI6MTczODUzOTI1Nywicm9sZSI6ImFkbWluIiwidXNlcl9pZCI6IjY3ODM1MTgyZTUxYWU2MmM1ZTA1MzBjOCJ9.zlKEmNFhTmItmLxFExq-IhLWVJjyF_pPovOHpOSF9Rc
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json: {}
+  /api/transaction/admin/owner/676c161877951c4ae20534fa:
+    get:
+      tags:
+        - transaction
+      summary: /api/transaction/admin/owner/:ownerId
+      parameters:
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: >-
+            Bearer
+            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3Mzg2MjU2NTcsImlhdCI6MTczODUzOTI1Nywicm9sZSI6ImFkbWluIiwidXNlcl9pZCI6IjY3ODM1MTgyZTUxYWU2MmM1ZTA1MzBjOCJ9.zlKEmNFhTmItmLxFExq-IhLWVJjyF_pPovOHpOSF9Rc
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json: {}
+  /api/transaction/678e7c7da5daee71bdf879e4:
     delete:
       tags:
         - transaction
-      summary: Delete a transaction
-      security:
-        - BearerAuth: []  # Menjamin bahwa security tetap terpakai pada endpoint ini
+      summary: /api/transaction/:id
       parameters:
-        - name: transactionId
-          in: path
-          required: true
+        - name: Authorization
+          in: header
           schema:
             type: string
-          example: 678e7c7da5daee71bdf879e4
+          example: >-
+            Bearer
+            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3Mzg2MjU2NTcsImlhdCI6MTczODUzOTI1Nywicm9sZSI6ImFkbWluIiwidXNlcl9pZCI6IjY3ODM1MTgyZTUxYWU2MmM1ZTA1MzBjOCJ9.zlKEmNFhTmItmLxFExq-IhLWVJjyF_pPovOHpOSF9Rc
       responses:
-        '200':
-          description: Transaction deleted successfully
+        "200":
+          description: Successful response
           content:
             application/json: {}
