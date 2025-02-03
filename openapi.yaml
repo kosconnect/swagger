@@ -1,10 +1,9 @@
 openapi: 3.0.0
 info:
   title: KosConnect API
-  description: |
-    API documentation for KosConnect, a platform for managing boarding houses and rentals.
   version: 1.0.0
-
+# description: |
+#     API documentation for KosConnect, a platform for managing boarding houses and rentals.
 servers:
   - url: https://kosconnect-server.vercel.app
 
