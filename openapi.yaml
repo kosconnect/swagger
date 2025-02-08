@@ -1,98 +1,22 @@
 openapi: 3.0.0
 info:
-  title: kosconnect
-  description: >-
-    # 🚀 Get started here
-
-
-    This template guides you through CRUD operations (GET, POST, PUT, DELETE),
-    variables, and tests.
-
-
-    ## 🔖 **How to use this template**
-
-
-    #### **Step 1: Send requests**
-
-
-    RESTful APIs allow you to perform CRUD operations using the POST, GET, PUT,
-    and DELETE HTTP methods.
-
-
-    This collection contains each of these
-    [request](https://learning.postman.com/docs/sending-requests/requests/)
-    types. Open each request and click "Send" to see what happens.
-
-
-    #### **Step 2: View responses**
-
-
-    Observe the response tab for status code (200 OK), response time, and size.
-
-
-    #### **Step 3: Send new Body data**
-
-
-    Update or add new data in "Body" in the POST request. Typically, Body data
-    is also used in PUT request.
-
-
-    ```
-
-    {
-        "name": "Add your name in the body"
-    }
-
-     ```
-
-    #### **Step 4: Update the variable**
-
-
-    Variables enable you to store and reuse values in Postman. We have created a
-    [variable](https://learning.postman.com/docs/sending-requests/variables/)
-    called `base_url` with the sample request
-    [https://postman-api-learner.glitch.me](https://postman-api-learner.glitch.me).
-    Replace it with your API endpoint to customize this collection.
-
-
-    #### **Step 5: Add tests in the "Scripts" tab**
-
-
-    Adding tests to your requests can help you confirm that your API is working
-    as expected. You can write test scripts in JavaScript and view the output in
-    the "Test Results" tab.
-
-
-    <img
-    src="https://content.pstmn.io/fa30ea0a-373d-4545-a668-e7b283cca343/aW1hZ2UucG5n"
-    alt="" height="1530" width="2162">
-
-
-    ## 💪 Pro tips
-
-
-    - Use folders to group related requests and organize the collection.
-        
-    - Add more
-    [scripts](https://learning.postman.com/docs/writing-scripts/intro-to-scripts/)
-    to verify if the API works as expected and execute workflows.
-        
-
-    ## 💡Related templates
-
-
-    [API testing
-    basics](https://go.postman.co/redirect/workspace?type=personal&collectionTemplateId=e9a37a28-055b-49cd-8c7e-97494a21eb54&sourceTemplateId=ddb19591-3097-41cf-82af-c84273e56719)  
-
-    [API
-    documentation](https://go.postman.co/redirect/workspace?type=personal&collectionTemplateId=e9c28f47-1253-44af-a2f3-20dce4da1f18&sourceTemplateId=ddb19591-3097-41cf-82af-c84273e56719)  
-
-    [Authorization
-    methods](https://go.postman.co/redirect/workspace?type=personal&collectionTemplateId=31a9a6ed-4cdf-4ced-984c-d12c9aec1c27&sourceTemplateId=ddb19591-3097-41cf-82af-c84273e56719)
+  title: KosConnect
   version: 1.0.0
+
 servers:
   - url: https://kosconnect-server.vercel.app
   - url: http://kosconnect-server.vercel.app
+
+components:
+  securitySchemes: 
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+security:
+  - bearerAuth: []
+
 tags:
   - name: auth
   - name: users
@@ -107,46 +31,49 @@ paths:
     post:
       tags:
         - auth
-      summary: /auth/register
-      description: >-
-        This is a POST request, submitting data to an API via the request body.
-        This request submits JSON data, and the data is reflected in the
-        response.
-
-
-        A successful POST request typically returns a `200 OK` or `201 Created`
-        response code.
+      summary: Register a new user
       requestBody:
+        required: true
         content:
           application/json:
             schema:
               type: object
+              properties:
+                fullname:
+                  type: string
+                email:
+                  type: string
+                role:
+                  type: string
+                password:
+                  type: string
               example:
                 fullname: Siti
                 email: skresmiamenun@gmail.com
                 role: user
                 password: bundania123
-      parameters:
-        - name: Content-Type
-          in: header
-          schema:
-            type: string
-          example: application/json
       responses:
         "200":
           description: Successful response
           content:
             application/json: {}
+
   /auth/login:
     post:
       tags:
         - auth
-      summary: /auth/login
+      summary: Login user
       requestBody:
+        required: true
         content:
           application/json:
             schema:
               type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
               example:
                 email: fathyapremium@gmail.com
                 password: fathya123
@@ -155,165 +82,131 @@ paths:
           description: Successful response
           content:
             application/json: {}
-  /api/users/67854a29e4b7a19886bfdbcd:
+
+  /api/users/{id}:
+    get:
+      tags:
+        - users
+      summary: Get user by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json: {}
+
     put:
       tags:
         - users
-      summary: /api/users:id
-      description: >-
-        This is a PUT request and it is used to overwrite an existing piece of
-        data. For instance, after you create an entity with a POST request, you
-        may want to modify that later. You can do that using a PUT request. You
-        typically identify the entity being updated by including an identifier
-        in the URL (eg. `id=1`).
-
-
-        A successful PUT request typically returns a `200 OK`, `201 Created`, or
-        `204 No Content` response code.
+      summary: Update user by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
       requestBody:
+        required: true
         content:
           application/json:
             schema:
               type: object
+              properties:
+                fullname:
+                  type: string
+                email:
+                  type: string
               example:
                 fullname: Fathya Fathimah
                 email: 714220012@std.ulbi.ac.id
-      parameters:
-        - name: Authorization
-          in: header
-          schema:
-            type: string
-          example: >-
-            Bearer
-            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3Mzg2MjU2NTcsImlhdCI6MTczODUzOTI1Nywicm9sZSI6ImFkbWluIiwidXNlcl9pZCI6IjY3ODM1MTgyZTUxYWU2MmM1ZTA1MzBjOCJ9.zlKEmNFhTmItmLxFExq-IhLWVJjyF_pPovOHpOSF9Rc
       responses:
         "200":
           description: Successful response
           content:
             application/json: {}
-  /api/users/678216730bf7bd2671c3e154:
+
     delete:
       tags:
         - users
-      summary: /api/users/:id
-      description: >-
-        This is a DELETE request, and it is used to delete data that was
-        previously created via a POST request. You typically identify the entity
-        being updated by including an identifier in the URL (eg. `id=1`).
-
-
-        A successful DELETE request typically returns a `200 OK`, `202
-        Accepted`, or `204 No Content` response code.
+      summary: Delete user by ID
       parameters:
-        - name: Authorization
-          in: header
+        - name: id
+          in: path
+          required: true
           schema:
             type: string
-          example: >-
-            Bearer
-            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3Mzg2MjU2NTcsImlhdCI6MTczODUzOTI1Nywicm9sZSI6ImFkbWluIiwidXNlcl9pZCI6IjY3ODM1MTgyZTUxYWU2MmM1ZTA1MzBjOCJ9.zlKEmNFhTmItmLxFExq-IhLWVJjyF_pPovOHpOSF9Rc
       responses:
         "200":
           description: Successful response
           content:
             application/json: {}
+
   /api/users/me:
     get:
       tags:
         - users
-      summary: /api/users/me
-      parameters:
-        - name: Authorization
-          in: header
-          schema:
-            type: string
-          example: >-
-            Bearer
-            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3Mzg2MjU2NTcsImlhdCI6MTczODUzOTI1Nywicm9sZSI6ImFkbWluIiwidXNlcl9pZCI6IjY3ODM1MTgyZTUxYWU2MmM1ZTA1MzBjOCJ9.zlKEmNFhTmItmLxFExq-IhLWVJjyF_pPovOHpOSF9Rc
+      summary: Get user detail
       responses:
         "200":
           description: Successful response
           content:
             application/json: {}
+
   /api/users/:
     get:
       tags:
         - users
-      summary: /api/users
-      parameters:
-        - name: Authorization
-          in: header
-          schema:
-            type: string
-          example: >-
-            Bearer
-            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3Mzg2MjU2NTcsImlhdCI6MTczODUzOTI1Nywicm9sZSI6ImFkbWluIiwidXNlcl9pZCI6IjY3ODM1MTgyZTUxYWU2MmM1ZTA1MzBjOCJ9.zlKEmNFhTmItmLxFExq-IhLWVJjyF_pPovOHpOSF9Rc
+      summary: Get all users
       responses:
         "200":
           description: Successful response
           content:
             application/json: {}
-  /api/users/67821a8159a5f0be2be1a561:
-    get:
-      tags:
-        - users
-      summary: /api/users/:id
-      parameters:
-        - name: Authorization
-          in: header
-          schema:
-            type: string
-          example: >-
-            Bearer
-            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3Mzg2MjU2NTcsImlhdCI6MTczODUzOTI1Nywicm9sZSI6ImFkbWluIiwidXNlcl9pZCI6IjY3ODM1MTgyZTUxYWU2MmM1ZTA1MzBjOCJ9.zlKEmNFhTmItmLxFExq-IhLWVJjyF_pPovOHpOSF9Rc
-      responses:
-        "200":
-          description: Successful response
-          content:
-            application/json: {}
-  /api/users/678216730bf7bd2671c3e154/role:
+
+  /api/users/{id}/role:
     put:
       tags:
         - users
-      summary: /api/users/:id/role
+      summary: Update user role by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
       requestBody:
+        required: true
         content:
           application/json:
             schema:
               type: object
+              properties:
+                role:
+                  type: string
               example:
                 role: user
-      parameters:
-        - name: Authorization
-          in: header
-          schema:
-            type: string
-          example: >-
-            Bearer
-            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3Mzg2MjU2NTcsImlhdCI6MTczODUzOTI1Nywicm9sZSI6ImFkbWluIiwidXNlcl9pZCI6IjY3ODM1MTgyZTUxYWU2MmM1ZTA1MzBjOCJ9.zlKEmNFhTmItmLxFExq-IhLWVJjyF_pPovOHpOSF9Rc
       responses:
         "200":
           description: Successful response
           content:
             application/json: {}
+
   /api/users/owner:
     get:
       tags:
         - users
-      summary: /api/users/owner
-      parameters:
-        - name: Authorization
-          in: header
-          schema:
-            type: string
-          example: >-
-            Bearer
-            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3Mzg2MjU2NTcsImlhdCI6MTczODUzOTI1Nywicm9sZSI6ImFkbWluIiwidXNlcl9pZCI6IjY3ODM1MTgyZTUxYWU2MmM1ZTA1MzBjOCJ9.zlKEmNFhTmItmLxFExq-IhLWVJjyF_pPovOHpOSF9Rc
+      summary: Get all owner
       responses:
         "200":
           description: Successful response
           content:
             application/json: {}
+
   /api/categories:
     post:
       tags:
