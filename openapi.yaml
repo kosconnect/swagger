@@ -93,7 +93,7 @@ paths:
           description: Successful response
           content:
             application/json: {}
-            
+
   /api/users/{id}:
     get:
       tags:
@@ -211,22 +211,18 @@ paths:
     post:
       tags:
         - category
-      summary: /api/categories
+      summary: Create a new category
       requestBody:
         content:
           application/json:
             schema:
               type: object
-              example:
-                name: Kos Keluarga
-      parameters:
-        - name: Authorization
-          in: header
-          schema:
-            type: string
-          example: >-
-            Bearer
-            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3Mzg2MDYyOTQsImlhdCI6MTczODUxOTg5NCwicm9sZSI6ImFkbWluIiwidXNlcl9pZCI6IjY3ODM1MTgyZTUxYWU2MmM1ZTA1MzBjOCJ9.O8ejYjg6oGqtnEF0t9zUhYjpNBnk46rBo4KsD-dlGuc
+              properties:
+                name:
+                  type: string
+                  example: Kos Keluarga
+      security:
+        - bearerAuth: []
       responses:
         "200":
           description: Successful response
@@ -235,68 +231,66 @@ paths:
     get:
       tags:
         - category
-      summary: /api/categories
+      summary: Get all category
+      security:
+        - bearerAuth: []
       responses:
         "200":
           description: Successful response
           content:
             application/json: {}
-  /api/categories/67a007206f265d5bbcdd78cd:
+
+  /api/categories/{id}:
     get:
       tags:
         - category
-      summary: /api/categories/:id
+      summary: Get category by ID
+      security:
+        - bearerAuth: []
       responses:
         "200":
           description: Successful response
           content:
             application/json: {}
+
     put:
       tags:
         - category
-      summary: /api/categories/:id
+      summary: Update category by ID
       requestBody:
         content:
           application/json:
             schema:
               type: object
-              example:
-                name: Kos Pria
-      parameters:
-        - name: Authorization
-          in: header
-          schema:
-            type: string
-          example: >-
-            Bearer
-            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3Mzg2MjU2NTcsImlhdCI6MTczODUzOTI1Nywicm9sZSI6ImFkbWluIiwidXNlcl9pZCI6IjY3ODM1MTgyZTUxYWU2MmM1ZTA1MzBjOCJ9.zlKEmNFhTmItmLxFExq-IhLWVJjyF_pPovOHpOSF9Rc
+              properties:
+                name:
+                  type: string
+                  example: Kos Pria
+      security:
+          - bearerAuth: []
       responses:
         "200":
           description: Successful response
           content:
             application/json: {}
+
     delete:
       tags:
         - category
-      summary: /api/categories/:id
-      parameters:
-        - name: Authorization
-          in: header
-          schema:
-            type: string
-          example: >-
-            Bearer
-            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3Mzg2MDYyOTQsImlhdCI6MTczODUxOTg5NCwicm9sZSI6ImFkbWluIiwidXNlcl9pZCI6IjY3ODM1MTgyZTUxYWU2MmM1ZTA1MzBjOCJ9.O8ejYjg6oGqtnEF0t9zUhYjpNBnk46rBo4KsD-dlGuc
+      summary: Delete category by ID
+      security:
+        - bearerAuth: []
       responses:
         "200":
           description: Successful response
           content:
             application/json: {}
+
   /api/facility:
     post:
       tags:
         - facility
-      summary: /api/facility
+      summary: Create a new facility
       requestBody:
         content:
           application/json:
@@ -305,58 +299,49 @@ paths:
               example:
                 name: Rooftop
                 type: boarding_house
-      parameters:
-        - name: Authorization
-          in: header
-          schema:
-            type: string
-          example: >-
-            Bearer
-            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3Mzg2MDYyOTQsImlhdCI6MTczODUxOTg5NCwicm9sZSI6ImFkbWluIiwidXNlcl9pZCI6IjY3ODM1MTgyZTUxYWU2MmM1ZTA1MzBjOCJ9.O8ejYjg6oGqtnEF0t9zUhYjpNBnk46rBo4KsD-dlGuc
+      security:
+        - bearerAuth: []
       responses:
         "200":
           description: Successful response
           content:
             application/json: {}
+
     get:
       tags:
         - facility
-      summary: /api/facility
-      parameters:
-        - name: Authorization
-          in: header
-          schema:
-            type: string
-          example: >-
-            Bearer
-            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3Mzg2MjU2NTcsImlhdCI6MTczODUzOTI1Nywicm9sZSI6ImFkbWluIiwidXNlcl9pZCI6IjY3ODM1MTgyZTUxYWU2MmM1ZTA1MzBjOCJ9.zlKEmNFhTmItmLxFExq-IhLWVJjyF_pPovOHpOSF9Rc
+      summary: Get all facility
+      security:
+        - bearerAuth: []
       responses:
         "200":
           description: Successful response
           content:
             application/json: {}
-  /api/facility/67a007cf98dab4a75173c6b5:
+
+  /api/facility/{id}:
     get:
       tags:
         - facility
-      summary: /api/facility/:id
+      summary: Get facility by ID
       parameters:
-        - name: Authorization
-          in: header
+        - name: id
+          in: path
+          required: true
           schema:
             type: string
-          example: >-
-            Bearer
-            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3Mzg2MjU2NTcsImlhdCI6MTczODUzOTI1Nywicm9sZSI6ImFkbWluIiwidXNlcl9pZCI6IjY3ODM1MTgyZTUxYWU2MmM1ZTA1MzBjOCJ9.zlKEmNFhTmItmLxFExq-IhLWVJjyF_pPovOHpOSF9Rc
+      security:
+        - bearerAuth: []
       responses:
         "200":
           description: Successful response
           content:
             application/json: {}
+
     put:
       tags:
         - facility
-      summary: /api/facility/:id
+      summary: Update facility by ID
       requestBody:
         content:
           application/json:
@@ -366,58 +351,57 @@ paths:
                 name: Rooftop di Lantai 4
                 type: boarding_house
       parameters:
-        - name: Authorization
-          in: header
+        - name: id
+          in: path
+          required: true
           schema:
             type: string
-          example: >-
-            Bearer
-            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3Mzg2MjU2NTcsImlhdCI6MTczODUzOTI1Nywicm9sZSI6ImFkbWluIiwidXNlcl9pZCI6IjY3ODM1MTgyZTUxYWU2MmM1ZTA1MzBjOCJ9.zlKEmNFhTmItmLxFExq-IhLWVJjyF_pPovOHpOSF9Rc
+          security:
+            - bearerAuth: []
       responses:
         "200":
           description: Successful response
           content:
             application/json: {}
+
     delete:
       tags:
         - facility
-      summary: /api/facility/:id
+      summary: Delete facility by ID
       parameters:
-        - name: Authorization
-          in: header
+        - name: id
+          in: path
+          required: true
           schema:
             type: string
-          example: >-
-            Bearer
-            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3Mzg2MjU2NTcsImlhdCI6MTczODUzOTI1Nywicm9sZSI6ImFkbWluIiwidXNlcl9pZCI6IjY3ODM1MTgyZTUxYWU2MmM1ZTA1MzBjOCJ9.zlKEmNFhTmItmLxFExq-IhLWVJjyF_pPovOHpOSF9Rc
+      security:
+        - bearerAuth: []
       responses:
         "200":
           description: Successful response
           content:
             application/json: {}
+
   /api/facility/type:
     get:
       tags:
         - facility
-      summary: /api/facility/type?type=boarding_house
+      summary: Get facility by type
       parameters:
-        - name: Authorization
-          in: header
-          schema:
-            type: string
-          example: >-
-            Bearer
-            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3Mzg2MjU2NTcsImlhdCI6MTczODUzOTI1Nywicm9sZSI6ImFkbWluIiwidXNlcl9pZCI6IjY3ODM1MTgyZTUxYWU2MmM1ZTA1MzBjOCJ9.zlKEmNFhTmItmLxFExq-IhLWVJjyF_pPovOHpOSF9Rc
         - name: type
           in: query
+          required: true
           schema:
             type: string
           example: boarding_house
+      security:
+        - bearerAuth: [] 
       responses:
         "200":
           description: Successful response
           content:
             application/json: {}
+            
   /api/customFacilities:
     post:
       tags:
