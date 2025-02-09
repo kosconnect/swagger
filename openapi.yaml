@@ -654,7 +654,7 @@ paths:
     get:
       tags:
         - boardingHouse
-      summary: /api/boardingHouses/:id
+      summary: Get all boarding house
       responses:
         "200":
           description: Successful response
@@ -881,6 +881,12 @@ paths:
       tags:
         - room
       summary: Get room by pages
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
       responses:
         "200":
           description: Successful response
@@ -908,31 +914,46 @@ paths:
     post:
       tags:
         - transaction
-      summary: /api/transaction
+      summary: Create a new transaction
       requestBody:
+        required: true
         content:
           application/json:
             schema:
               type: object
-              example:
+              properties:
                 personal_info:
-                  full_name: Fathya Fathimah Azzahra
-                  email: 714220012@std.ulbi.ac.id
-                  phone_number: "+6285759043680"
+                  type: object
+                  properties:
+                    full_name:
+                      type: string
+                      example: Fathya Fathimah Azzahra
+                    email:
+                      type: string
+                      format: email
+                      example: 714220012@std.ulbi.ac.id
+                    phone_number:
+                      type: string
+                      example: "+6285759043680"
                 custom_facilities:
-                  - 679fc2938ce2a6af5720b149
-                  - 679fc7038784cd291588d882
-                  - 67827a8de860b172001d60a6
-                payment_term: semi_annual
-                check_in_date: "2025-02-05"
+                  type: array
+                  items:
+                    type: string
+                    example: 
+                      - 679fc2938ce2a6af5720b149
+                      - 679fc7038784cd291588d882
+                      - 67827a8de860b172001d60a6
+                payment_term: 
+                  type: string
+                  enum:
+                    -semi_annual
+                    -annual
+                  example: semi_annual
+                check_in_date: 
+                  type: string
+                  format: date
+                  example: "2025-02-05"
       parameters:
-        - name: Authorization
-          in: header
-          schema:
-            type: string
-          example: >-
-            Bearer
-            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3Mzg2MjQ5ODUsImlhdCI6MTczODUzODU4NSwicm9sZSI6InVzZXIiLCJ1c2VyX2lkIjoiNjc4NTRhMjllNGI3YTE5ODg2YmZkYmNkIn0.im1ECSYzT4igkdhFy7PJpdajoiaNnG3HEaKIbaeSkDU
         - name: Content-Type
           in: header
           schema:
@@ -963,77 +984,71 @@ paths:
           description: Successful response
           content:
             application/json: {}
+    get:
+      tags:
+        - transaction
+      summary: Get all transaction
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json: {}
+
   /api/transaction/user:
     get:
       tags:
         - transaction
-      summary: /api/transaction/user
-      parameters:
-        - name: Authorization
-          in: header
-          schema:
-            type: string
-          example: >-
-            Bearer
-            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3Mzg2MjQ5ODUsImlhdCI6MTczODUzODU4NSwicm9sZSI6InVzZXIiLCJ1c2VyX2lkIjoiNjc4NTRhMjllNGI3YTE5ODg2YmZkYmNkIn0.im1ECSYzT4igkdhFy7PJpdajoiaNnG3HEaKIbaeSkDU
+      summary: Get all transaction by user
       responses:
         "200":
           description: Successful response
           content:
             application/json: {}
-  /transactions/679fff6e2dd7df11b3a089b1/payment:
+
+  /transactions/{id}/payment:
     post:
       tags:
         - transaction
-      summary: /transactions/:id/payment
-      requestBody:
-        content: {}
+      summary: Create a new payment
       parameters:
-        - name: Authorization
-          in: header
+        - name: id
+          in: path
+          required: true
           schema:
             type: string
-          example: >-
-            Bearer
-            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3Mzg2MjQ5ODUsImlhdCI6MTczODUzODU4NSwicm9sZSI6InVzZXIiLCJ1c2VyX2lkIjoiNjc4NTRhMjllNGI3YTE5ODg2YmZkYmNkIn0.im1ECSYzT4igkdhFy7PJpdajoiaNnG3HEaKIbaeSkDU
       responses:
         "200":
           description: Successful response
           content:
             application/json: {}
+
   /api/transaction/owner:
     get:
       tags:
         - transaction
-      summary: /api/transaction/owner
+      summary: Get all transaction by owner
       parameters:
-        - name: Authorization
-          in: header
+        - name: owner_id
+          in: query
+          required: true
           schema:
             type: string
-          example: >-
-            Bearer
-            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3Mzg2MjU1NTYsImlhdCI6MTczODUzOTE1Niwicm9sZSI6Im93bmVyIiwidXNlcl9pZCI6IjY3NmMxNjE4Nzc5NTFjNGFlMjA1MzRmYSJ9.JNFHNkIObDtonQoXNTHHDz40lYHiFGFz-oSLajUOSKQ
+          example: 676c161877951c4ae20534fa
       responses:
         "200":
           description: Successful response
           content:
             application/json: {}
-  /api/transaction:
+
+  /api/transaction/{id}:
     get:
       tags:
         - transaction
-      summary: /api/transaction
+      summary: Get transaction by ID
       parameters:
-        - name: Authorization
-          in: header
-          schema:
-            type: string
-          example: >-
-            Bearer
-            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3Mzg2MjU2NTcsImlhdCI6MTczODUzOTI1Nywicm9sZSI6ImFkbWluIiwidXNlcl9pZCI6IjY3ODM1MTgyZTUxYWU2MmM1ZTA1MzBjOCJ9.zlKEmNFhTmItmLxFExq-IhLWVJjyF_pPovOHpOSF9Rc
-        - name: ""
-          in: header
+        - name: id
+          in: path
+          required: true
           schema:
             type: string
       responses:
@@ -1041,75 +1056,54 @@ paths:
           description: Successful response
           content:
             application/json: {}
-  /api/transaction/679fff6e2dd7df11b3a089b1:
-    get:
-      tags:
-        - transaction
-      summary: /api/transaction/:id
-      parameters:
-        - name: Authorization
-          in: header
-          schema:
-            type: string
-          example: >-
-            Bearer
-            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3Mzg2MjQ5ODUsImlhdCI6MTczODUzODU4NSwicm9sZSI6InVzZXIiLCJ1c2VyX2lkIjoiNjc4NTRhMjllNGI3YTE5ODg2YmZkYmNkIn0.im1ECSYzT4igkdhFy7PJpdajoiaNnG3HEaKIbaeSkDU
-      responses:
-        "200":
-          description: Successful response
-          content:
-            application/json: {}
-  /api/transaction/admin/user/67854a29e4b7a19886bfdbcd:
-    get:
-      tags:
-        - transaction
-      summary: /api/transaction/admin/user/:userId
-      parameters:
-        - name: Authorization
-          in: header
-          schema:
-            type: string
-          example: >-
-            Bearer
-            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3Mzg2MjU2NTcsImlhdCI6MTczODUzOTI1Nywicm9sZSI6ImFkbWluIiwidXNlcl9pZCI6IjY3ODM1MTgyZTUxYWU2MmM1ZTA1MzBjOCJ9.zlKEmNFhTmItmLxFExq-IhLWVJjyF_pPovOHpOSF9Rc
-      responses:
-        "200":
-          description: Successful response
-          content:
-            application/json: {}
-  /api/transaction/admin/owner/676c161877951c4ae20534fa:
-    get:
-      tags:
-        - transaction
-      summary: /api/transaction/admin/owner/:ownerId
-      parameters:
-        - name: Authorization
-          in: header
-          schema:
-            type: string
-          example: >-
-            Bearer
-            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3Mzg2MjU2NTcsImlhdCI6MTczODUzOTI1Nywicm9sZSI6ImFkbWluIiwidXNlcl9pZCI6IjY3ODM1MTgyZTUxYWU2MmM1ZTA1MzBjOCJ9.zlKEmNFhTmItmLxFExq-IhLWVJjyF_pPovOHpOSF9Rc
-      responses:
-        "200":
-          description: Successful response
-          content:
-            application/json: {}
-  /api/transaction/678e7c7da5daee71bdf879e4:
+
     delete:
       tags:
         - transaction
-      summary: /api/transaction/:id
+      summary: Delete transaction by ID
       parameters:
-        - name: Authorization
-          in: header
+        - name: id
+          in: path
+          required: true
           schema:
             type: string
-          example: >-
-            Bearer
-            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3Mzg2MjU2NTcsImlhdCI6MTczODUzOTI1Nywicm9sZSI6ImFkbWluIiwidXNlcl9pZCI6IjY3ODM1MTgyZTUxYWU2MmM1ZTA1MzBjOCJ9.zlKEmNFhTmItmLxFExq-IhLWVJjyF_pPovOHpOSF9Rc
       responses:
         "200":
           description: Successful response
           content:
             application/json: {}
+
+  /api/transaction/admin/user/{id}:
+    get:
+      tags:
+        - transaction
+      summary: Get all transaction by user ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json: {}
+
+  /api/transaction/admin/owner/{id}:
+    get:
+      tags:
+        - transaction
+      summary: Get all transaction by owner
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json: {}
+            
