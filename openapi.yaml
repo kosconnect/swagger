@@ -212,7 +212,10 @@ paths:
       tags:
         - category
       summary: Create a new category
+      security:
+        - bearerAuth: []
       requestBody:
+        required: true
         content:
           application/json:
             schema:
@@ -220,9 +223,8 @@ paths:
               properties:
                 name:
                   type: string
-                  example: Kos Keluarga
-      security:
-        - bearerAuth: []
+              example: 
+                name: Kos Keluarga
       responses:
         "200":
           description: Successful response
@@ -245,8 +247,12 @@ paths:
       tags:
         - category
       summary: Get category by ID
-      security:
-        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
       responses:
         "200":
           description: Successful response
@@ -257,7 +263,16 @@ paths:
       tags:
         - category
       summary: Update category by ID
-      requestBody:
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody: 
+        required: true
         content:
           application/json:
             schema:
@@ -265,9 +280,8 @@ paths:
               properties:
                 name:
                   type: string
-                  example: Kos Pria
-      security:
-          - bearerAuth: []
+              example:
+                name: Kos Pria
       responses:
         "200":
           description: Successful response
@@ -280,6 +294,12 @@ paths:
       summary: Delete category by ID
       security:
         - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
       responses:
         "200":
           description: Successful response
