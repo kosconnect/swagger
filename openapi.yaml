@@ -206,7 +206,7 @@ paths:
           content:
             application/json: {}
 
-  /api/categories:
+  /api/categories/:
     post:
       tags:
         - category
