@@ -297,33 +297,34 @@ paths:
           content:
             application/json: {}
 
-  /api/facility:
+  /api/facility/:
     post:
       tags:
         - facility
       summary: Create a new facility
       requestBody:
+        required: true
         content:
           application/json:
             schema:
               type: object
+              properties:
+                name:
+                  type: string
+                type:
+                  type: string
               example:
                 name: Rooftop
                 type: boarding_house
-      security:
-        - bearerAuth: []
       responses:
         "200":
           description: Successful response
           content:
             application/json: {}
-
     get:
       tags:
         - facility
       summary: Get all facility
-      security:
-        - bearerAuth: []
       responses:
         "200":
           description: Successful response
@@ -341,8 +342,6 @@ paths:
           required: true
           schema:
             type: string
-      security:
-        - bearerAuth: []
       responses:
         "200":
           description: Successful response
@@ -353,22 +352,26 @@ paths:
       tags:
         - facility
       summary: Update facility by ID
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              example:
-                name: Rooftop di Lantai 4
-                type: boarding_house
       parameters:
         - name: id
           in: path
           required: true
           schema:
             type: string
-          security:
-            - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                type:
+                  type: string
+              example:
+                name: Rooftop di Lantai 4
+                type: boarding_house
       responses:
         "200":
           description: Successful response
@@ -385,8 +388,6 @@ paths:
           required: true
           schema:
             type: string
-      security:
-        - bearerAuth: []
       responses:
         "200":
           description: Successful response
@@ -399,14 +400,12 @@ paths:
         - facility
       summary: Get facility by type
       parameters:
-        - name: type
-          in: query
+        - name: id
+          in: path
           required: true
           schema:
             type: string
           example: boarding_house
-      security:
-        - bearerAuth: [] 
       responses:
         "200":
           description: Successful response
