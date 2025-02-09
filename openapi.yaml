@@ -712,11 +712,11 @@ paths:
           content:
             application/json: {}
 
-  /api/rooms/679fc9e68784cd291588d883:
+  /api/rooms/{id}:
     post:
       tags:
         - room
-      summary: /api/rooms/:boardingHouseID
+      summary:  Create room by ID
       requestBody:
         content:
           multipart/form-data:
@@ -731,42 +731,57 @@ paths:
                   example: 5x5 meter
                 price_semi_annual:
                   type: integer
-                  example: "7000000"
+                  example: 7000000
                 room_facilities:
                   type: string
-                  example: >-
-                    ["67829f0ace229812a4bade28", "6782a0455e49e3a9bdd023a0",
-                    "6782a05a5e49e3a9bdd023a1"]
+                  example: '["67829f0ace229812a4bade28", "6782a0455e49e3a9bdd023a0",
+                    "6782a05a5e49e3a9bdd023a1"]'
                 custom_facilities:
                   type: string
                   example: '["679fc2938ce2a6af5720b149", "679fc7038784cd291588d882"]'
                 number_available:
                   type: integer
-                  example: "5"
+                  example: 5
                 images:
-                  type: string
-                  format: binary
+                  type: array
+                  items:
+                    type: string
+                    format: binary
                 price_yearly:
                   type: integer
-                  example: "13000000"
-      parameters:
-        - name: Authorization
-          in: header
-          schema:
-            type: string
-          example: >-
-            Bearer
-            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3Mzg2MjM1OTksImlhdCI6MTczODUzNzE5OSwicm9sZSI6Im93bmVyIiwidXNlcl9pZCI6IjY3NmMxNjE4Nzc5NTFjNGFlMjA1MzRmYSJ9.IEkrSIiQEsA6nVKbuIYgcUq1se11fwbzuIA81p1GKSM
+                  example: 13000000
       responses:
         "200":
           description: Successful response
           content:
             application/json: {}
-  /api/rooms/679ff9a92dd7df11b3a089ad:
+
+    get:
+      tags:
+        - room
+      summary: Get room by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json: {}
+
     put:
       tags:
         - room
-      summary: /api/rooms/:id
+      summary: Update room by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
       requestBody:
         content:
           multipart/form-data:
@@ -778,150 +793,117 @@ paths:
                   example: Studio
                 size:
                   type: string
-                  example: 5 x 5 meter
-                price_quarterly:
-                  type: integer
-                  example: "4000000"
-                room_facilities:
-                  type: string
-                  example: >-
-                    ["67829f0ace229812a4bade28", "6782a0455e49e3a9bdd023a0",
-                    "6782a05a5e49e3a9bdd023a1"]
-                custom_facilities:
-                  type: string
-                  example: >-
-                    ["679fc2938ce2a6af5720b149", "679fc7038784cd291588d882",
-                    "67827a8de860b172001d60a6"]
-                status:
-                  type: string
-                  example: available
-                number_available:
-                  type: integer
-                  example: "6"
-                images:
-                  type: string
-                  format: binary
-                price_yearly:
-                  type: integer
-                  example: "13000000"
+                  example: 5x5 meter
                 price_semi_annual:
                   type: integer
-                  example: "7000000"
-      parameters:
-        - name: Authorization
-          in: header
-          schema:
-            type: string
-          example: >-
-            Bearer
-            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3Mzg2MjM1OTksImlhdCI6MTczODUzNzE5OSwicm9sZSI6Im93bmVyIiwidXNlcl9pZCI6IjY3NmMxNjE4Nzc5NTFjNGFlMjA1MzRmYSJ9.IEkrSIiQEsA6nVKbuIYgcUq1se11fwbzuIA81p1GKSM
+                  example: 7000000
+                room_facilities:
+                  type: string
+                  example: '["67829f0ace229812a4bade28", "6782a0455e49e3a9bdd023a0",
+                    "6782a05a5e49e3a9bdd023a1"]'
+                custom_facilities:
+                  type: string
+                  example: '["679fc2938ce2a6af5720b149", "679fc7038784cd291588d882"]'
+                number_available:
+                  type: integer
+                  example: 5
+                images:
+                  type: array
+                  items:
+                    type: string
+                    format: binary
+                price_yearly:
+                  type: integer
+                  example: 13000000
       responses:
         "200":
           description: Successful response
           content:
             application/json: {}
+
+    delete:
+      tags:
+        - room
+      summary: Delete room by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successful response
+          content:
+          application/json: {}
+    
   /api/rooms/:
     get:
       tags:
         - room
-      summary: /api/rooms
+      summary: Get all rooms
       responses:
         "200":
           description: Successful response
           content:
-            application/json: {}
-  /api/rooms/679f9097ebed047dadcc5833:
+          application/json: {}
+
+  /api/rooms/boarding-house/{id}:
     get:
       tags:
         - room
-      summary: /api/rooms/:id
+      summary: Get room by boarding house ID
       parameters:
-        - name: Authorization
-          in: header
+        - name: id
+          in: path
+          required: true
           schema:
             type: string
-          example: >-
-            Bearer
-            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3Mzg2MjM1OTksImlhdCI6MTczODUzNzE5OSwicm9sZSI6Im93bmVyIiwidXNlcl9pZCI6IjY3NmMxNjE4Nzc5NTFjNGFlMjA1MzRmYSJ9.IEkrSIiQEsA6nVKbuIYgcUq1se11fwbzuIA81p1GKSM
       responses:
         "200":
           description: Successful response
           content:
             application/json: {}
-  /api/rooms/boarding-house/679fc9e68784cd291588d883:
-    get:
-      tags:
-        - room
-      summary: /api/rooms/boarding-house/:boardingHouseID
-      parameters:
-        - name: Authorization
-          in: header
-          schema:
-            type: string
-          example: >-
-            Bearer
-            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3Mzg2MjM1OTksImlhdCI6MTczODUzNzE5OSwicm9sZSI6Im93bmVyIiwidXNlcl9pZCI6IjY3NmMxNjE4Nzc5NTFjNGFlMjA1MzRmYSJ9.IEkrSIiQEsA6nVKbuIYgcUq1se11fwbzuIA81p1GKSM
-      responses:
-        "200":
-          description: Successful response
-          content:
-            application/json: {}
+
   /api/rooms/home:
     get:
       tags:
         - room
-      summary: /api/rooms/home
+      summary: Get all rooms by home
       responses:
         "200":
           description: Successful response
           content:
             application/json: {}
-  /api/rooms/678ff019ffdf62c251ac4b2f/pages:
+
+  /api/rooms/{id}/pages:
     get:
       tags:
         - room
-      summary: /api/rooms/:id/pages
+      summary: Get room by pages
       responses:
         "200":
           description: Successful response
           content:
             application/json: {}
-  /api/rooms/678ff019ffdf62c251ac4b2f/detail:
+
+  /api/rooms/{id}/detail:
     get:
       tags:
         - room
-      summary: /api/rooms/:id/detail
+      summary: Get room detail
       parameters:
-        - name: Authorization
-          in: header
+        - name: id
+          in: path
+          required: true
           schema:
             type: string
-          example: >-
-            Bearer
-            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3Mzg2MjM1OTksImlhdCI6MTczODUzNzE5OSwicm9sZSI6Im93bmVyIiwidXNlcl9pZCI6IjY3NmMxNjE4Nzc5NTFjNGFlMjA1MzRmYSJ9.IEkrSIiQEsA6nVKbuIYgcUq1se11fwbzuIA81p1GKSM
       responses:
         "200":
           description: Successful response
           content:
             application/json: {}
-  /api/rooms/679f903555a47b948f9fc56c:
-    delete:
-      tags:
-        - room
-      summary: /api/rooms/:id
-      parameters:
-        - name: Authorization
-          in: header
-          schema:
-            type: string
-          example: >-
-            Bearer
-            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3Mzg2MjM1OTksImlhdCI6MTczODUzNzE5OSwicm9sZSI6Im93bmVyIiwidXNlcl9pZCI6IjY3NmMxNjE4Nzc5NTFjNGFlMjA1MzRmYSJ9.IEkrSIiQEsA6nVKbuIYgcUq1se11fwbzuIA81p1GKSM
-      responses:
-        "200":
-          description: Successful response
-          content:
-            application/json: {}
+
   /api/transaction/:
     post:
       tags:
