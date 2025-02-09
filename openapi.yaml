@@ -511,7 +511,7 @@ paths:
           content:
             application/json: {}
 
-  /api/customFacilities/admin/:
+  /api/customFacilities/admin:
     get:
       tags:
         - customFacility
@@ -529,12 +529,31 @@ paths:
           content:
             application/json: {}
 
-  /api/boardingHouses:
+  /api/customFacilities/owner:
+    get:
+      tags:
+        - customFacility
+      summary: Get all custom facility by owner
+      parameters:
+        - name: owner_id
+          in: query
+          required: true
+          schema:
+            type: string
+          example: 676c161877951c4ae20534fa
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json: {}
+
+  /api/boardingHouses/:
     post:
       tags:
         - boardingHouse
-      summary: /api/boardingHouses by Owner
+      summary: Create a new boarding house
       requestBody:
+        required: true
         content:
           multipart/form-data:
             schema:
@@ -556,83 +575,86 @@ paths:
                   type: string
                   example: Piket seminggu sekali
                 facilities:
-                  type: string
-                  example: >-
-                    ["679d31601c7dbc4fe53fd90f", "679fbd39710193d32f39c4c9",
-                    "67829f775e49e3a9bdd02399"]
+                  type: array
+                  items:
+                    type: string
+                  example: 
+                    - "679d31601c7dbc4fe53fd90f"
+                    - "679fbd39710193d32f39c4c9"
+                    - "67829f775e49e3a9bdd02399"
                 images:
-                  type: string
-                  format: binary
-      parameters:
-        - name: Authorization
-          in: header
-          schema:
-            type: string
-          example: >-
-            Bearer
-            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3Mzg2MjQzNzUsImlhdCI6MTczODUzNzk3NSwicm9sZSI6Im93bmVyIiwidXNlcl9pZCI6IjY3NmMxNjE4Nzc5NTFjNGFlMjA1MzRmYSJ9.t86VBuYS-QOohJawh5nVnOQAf3sBkMul7xfJdOXU0xQ
+                  type: array
+                  items:
+                    type: string
+                    format: binary
       responses:
         "200":
           description: Successful response
           content:
             application/json: {}
-  /api/boardingHouses/679fc9e68784cd291588d883:
+
+    get:
+      tags:
+        - boardingHouse
+      summary: Get all boarding house
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json: {}
+
+  /api/boardingHouses/{id}:
     put:
-      tags:
-        - boardingHouse
-      summary: /api/boardingHouses/:id
-      requestBody:
-        content:
-          multipart/form-data:
-            schema:
-              type: object
-              properties:
-                name:
+    tags:
+      - boardingHouse
+    summary: Update boarding house by ID
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+        example: 60dff4b2c130d8246c76a3a4
+    requestBody:
+      required: true
+      content:
+        multipart/form-data:
+          schema:
+            type: object
+            properties:
+              name:
+                type: string
+                example: Kos Karina Baru
+              address:
+                type: string
+                example: Jl. Kwangya No. 10
+              category_id:
+                type: string
+                example: 6782a4a3ce3fab5e128cf500
+              description:
+                type: string
+                example: Lokasi lebih strategis dan fasilitas lengkap
+              rules:
+                type: string
+                example: Piket seminggu sekali, jaga kebersihan
+              facilities:
+                type: array
+                items:
                   type: string
-                  example: Kos Naevis
-                address:
-                  type: string
-                  example: >-
-                    Jl. Soomantri No.30, Sarijadi, Kec. Sukasari, Kota Bandung,
-                    Jawa Barat 40151
-                description:
-                  type: string
-                  example: Terdapat petugas kebersihan yang bertugas seminggu sekali
-                rules:
-                  type: string
-                  example: Tidak Boleh Membawa Teman Laki-Laki Menginap
-                category_id:
-                  type: string
-                  example: 6782a4a3ce3fab5e128cf500
-                facilities:
-                  type: string
-                  example: >-
-                    ["67829f2f5e49e3a9bdd02394", "67829f375e49e3a9bdd02395",
-                    "67829f475e49e3a9bdd02396"]
-                images:
+                example: 
+                  - "679d31601c7dbc4fe53fd90f"
+                  - "679fbd39710193d32f39c4c9"
+                  - "67829f775e49e3a9bdd02399"
+              images:
+                type: array
+                items:
                   type: string
                   format: binary
-                owner_id:
-                  type: string
-                  example: 676c161877951c4ae20534fa
-      parameters:
-        - name: Authorization
-          in: header
-          schema:
-            type: string
-          example: >-
-            Bearer
-            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3Mzg2MDk2MDQsImlhdCI6MTczODUyMzIwNCwicm9sZSI6Im93bmVyIiwidXNlcl9pZCI6IjY3NmMxNjE4Nzc5NTFjNGFlMjA1MzRmYSJ9.hKd7QcO-haqWRuuu1_gVdfteBdnbirmBttwCXx-EC9k
-        - name: Content-Type
-          in: header
-          schema:
-            type: string
-          example: multipart/form-data
-      responses:
-        "200":
-          description: Successful response
-          content:
-            application/json: {}
+    responses:
+      "200":
+        description: Successful response for updating boarding house
+        content:
+          application/json: 
     get:
       tags:
         - boardingHouse
@@ -642,70 +664,58 @@ paths:
           description: Successful response
           content:
             application/json: {}
-  /api/boardingHouses/:
-    get:
+
+    delete:
       tags:
         - boardingHouse
-      summary: /api/boardingHouses/
-      responses:
-        "200":
-          description: Successful response
-          content:
-            application/json: {}
-  /api/boardingHouses/679fc9e68784cd291588d883/detail:
-    get:
-      tags:
-        - boardingHouse
-      summary: /api/hoardingHouses/:id/detail
+      summary: Delete boarding house by ID
       parameters:
-        - name: Authorization
-          in: header
+        - name: id
+          in: path
+          required: true
           schema:
             type: string
-          example: >-
-            Bearer
-            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MzQ5MzY1NDQsInJvbGUiOiJ1c2VyIiwidXNlcl9pZCI6IjY3NjdiNDg5MWMwY2YyOTgwYzlkOGI4NCJ9.ymwmpFSUx2H80dgzYMYPsOZ2CrIlUhHfY0DNeWF0Uag
       responses:
         "200":
           description: Successful response
           content:
             application/json: {}
+
+  /api/boardingHouses/{id}/detail:
+    get:
+      tags:
+        - boardingHouse
+      summary: Get boarding house detail 
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json: {}
+
   /api/boardingHouses/owner:
     get:
       tags:
         - boardingHouse
-      summary: /api/boardingHouses/owner
+      summary: Get boarding house by owner
       parameters:
-        - name: Authorization
-          in: header
+        - name: owner_id
+          in: query
+          required: true
           schema:
             type: string
-          example: >-
-            Bearer
-            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3Mzg2MjQzNzUsImlhdCI6MTczODUzNzk3NSwicm9sZSI6Im93bmVyIiwidXNlcl9pZCI6IjY3NmMxNjE4Nzc5NTFjNGFlMjA1MzRmYSJ9.t86VBuYS-QOohJawh5nVnOQAf3sBkMul7xfJdOXU0xQ
+          example: 676c161877951c4ae20534fa
       responses:
         "200":
           description: Successful response
           content:
             application/json: {}
-  /api/boardingHouses/6782bfa2408e18739080835a:
-    delete:
-      tags:
-        - boardingHouse
-      summary: /api/boardingHouses/:id
-      parameters:
-        - name: Authorization
-          in: header
-          schema:
-            type: string
-          example: >-
-            Bearer
-            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3Mzg2MDk2MDQsImlhdCI6MTczODUyMzIwNCwicm9sZSI6Im93bmVyIiwidXNlcl9pZCI6IjY3NmMxNjE4Nzc5NTFjNGFlMjA1MzRmYSJ9.hKd7QcO-haqWRuuu1_gVdfteBdnbirmBttwCXx-EC9k
-      responses:
-        "200":
-          description: Successful response
-          content:
-            application/json: {}
+
   /api/rooms/679fc9e68784cd291588d883:
     post:
       tags:
