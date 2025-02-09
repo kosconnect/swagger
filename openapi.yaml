@@ -575,13 +575,9 @@ paths:
                   type: string
                   example: Piket seminggu sekali
                 facilities_id:
-                  type: array
                   items:
                     type: string
-                  example: 
-                    - "679d31601c7dbc4fe53fd90f"
-                    - "679fbd39710193d32f39c4c9"
-                    - "67829f775e49e3a9bdd02399"
+                  example: ["679d31601c7dbc4fe53fd90f","679fbd39710193d32f39c4c9","67829f775e49e3a9bdd02399"]
                 images:
                   type: array
                   items:
