@@ -574,7 +574,7 @@ paths:
                 rules:
                   type: string
                   example: Piket seminggu sekali
-                facilities:
+                facilities_id:
                   type: array
                   items:
                     type: string
@@ -637,7 +637,7 @@ paths:
               rules:
                 type: string
                 example: Piket seminggu sekali, jaga kebersihan
-              facilities:
+              facilities_id:
                 type: array
                 items:
                   type: string
