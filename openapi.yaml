@@ -400,8 +400,8 @@ paths:
         - facility
       summary: Get facility by type
       parameters:
-        - name: id
-          in: path
+        - name: type
+          in: query
           required: true
           schema:
             type: string
@@ -412,28 +412,28 @@ paths:
           content:
             application/json: {}
             
-  /api/customFacilities:
+  /api/customFacilities/:
     post:
       tags:
         - customFacility
-      summary: /api/customFacilities by admin
+      summary: Create a new custom facility
       requestBody:
+        required: true
         content:
           application/json:
             schema:
               type: object
+              properties:
+                name:
+                  type: string
+                price:
+                  type: integer
+                owner_id:
+                  type: string
               example:
                 name: Makan Siang dari Warteg Bahari
                 price: 300000
                 owner_id: 676c161877951c4ae20534fa
-      parameters:
-        - name: Authorization
-          in: header
-          schema:
-            type: string
-          example: >-
-            Bearer
-            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3Mzg2MDYyOTQsImlhdCI6MTczODUxOTg5NCwicm9sZSI6ImFkbWluIiwidXNlcl9pZCI6IjY3ODM1MTgyZTUxYWU2MmM1ZTA1MzBjOCJ9.O8ejYjg6oGqtnEF0t9zUhYjpNBnk46rBo4KsD-dlGuc
       responses:
         "200":
           description: Successful response
@@ -442,33 +442,24 @@ paths:
     get:
       tags:
         - customFacility
-      summary: /api/customFacilities/owner
-      parameters:
-        - name: Authorization
-          in: header
-          schema:
-            type: string
-          example: >-
-            Bearer
-            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3Mzg2MDk2MDQsImlhdCI6MTczODUyMzIwNCwicm9sZSI6Im93bmVyIiwidXNlcl9pZCI6IjY3NmMxNjE4Nzc5NTFjNGFlMjA1MzRmYSJ9.hKd7QcO-haqWRuuu1_gVdfteBdnbirmBttwCXx-EC9k
+      summary: Get all custom facility
       responses:
         "200":
           description: Successful response
           content:
             application/json: {}
-  /api/customFacilities/67a00999a41785543e617b91:
+
+  /api/customFacilities/{id}:
     get:
       tags:
         - customFacility
-      summary: /api/customFacilities/:id
+      summary: Get custom facility by ID
       parameters:
-        - name: Authorization
-          in: header
+        - name: id
+          in: path
+          required: true
           schema:
             type: string
-          example: >-
-            Bearer
-            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3Mzg2MDk2MDQsImlhdCI6MTczODUyMzIwNCwicm9sZSI6Im93bmVyIiwidXNlcl9pZCI6IjY3NmMxNjE4Nzc5NTFjNGFlMjA1MzRmYSJ9.hKd7QcO-haqWRuuu1_gVdfteBdnbirmBttwCXx-EC9k
       responses:
         "200":
           description: Successful response
@@ -477,43 +468,58 @@ paths:
     put:
       tags:
         - customFacility
-      summary: /api/customFacilities/:id
+      summary: Update custom facility by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
       requestBody:
+        required: true
         content:
           application/json:
             schema:
               type: object
+              properties:
+                name:
+                  type: string
+                price:
+                  type: integer
               example:
                 name: Listrik Rice Cooker
                 price: 30000
-      parameters:
-        - name: Authorization
-          in: header
-          schema:
-            type: string
-          example: >-
-            Bearer
-            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3Mzg2MDk2MDQsImlhdCI6MTczODUyMzIwNCwicm9sZSI6Im93bmVyIiwidXNlcl9pZCI6IjY3NmMxNjE4Nzc5NTFjNGFlMjA1MzRmYSJ9.hKd7QcO-haqWRuuu1_gVdfteBdnbirmBttwCXx-EC9k
       responses:
         "200":
           description: Successful response
           content:
             application/json: {}
+    
+    delete:
+      tags:
+        - customFacility
+      summary: Delete custom facility by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json: {}
+
   /api/customFacilities/admin/:
     get:
       tags:
         - customFacility
-      summary: /api/customFacilities/admin/?owner_id
+      summary: Get all custom facility by admin
       parameters:
-        - name: Authorization
-          in: header
-          schema:
-            type: string
-          example: >-
-            Bearer
-            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3Mzg2MjU2NTcsImlhdCI6MTczODUzOTI1Nywicm9sZSI6ImFkbWluIiwidXNlcl9pZCI6IjY3ODM1MTgyZTUxYWU2MmM1ZTA1MzBjOCJ9.zlKEmNFhTmItmLxFExq-IhLWVJjyF_pPovOHpOSF9Rc
         - name: owner_id
           in: query
+          required: true
           schema:
             type: string
           example: 676c161877951c4ae20534fa
@@ -522,24 +528,7 @@ paths:
           description: Successful response
           content:
             application/json: {}
-  /api/customFacilities/679fc7038784cd291588d882:
-    delete:
-      tags:
-        - customFacility
-      summary: /api/customFacilities:id
-      parameters:
-        - name: Authorization
-          in: header
-          schema:
-            type: string
-          example: >-
-            Bearer
-            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3Mzg2MDk2MDQsImlhdCI6MTczODUyMzIwNCwicm9sZSI6Im93bmVyIiwidXNlcl9pZCI6IjY3NmMxNjE4Nzc5NTFjNGFlMjA1MzRmYSJ9.hKd7QcO-haqWRuuu1_gVdfteBdnbirmBttwCXx-EC9k
-      responses:
-        "200":
-          description: Successful response
-          content:
-            application/json: {}
+
   /api/boardingHouses:
     post:
       tags:
